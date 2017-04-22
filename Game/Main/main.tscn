@@ -5,7 +5,7 @@
 
 [node name="Main" type="Node"]
 
-[node name="RigidBody2D" parent="." instance=ExtResource( 1 )]
+[node name="Player" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( 746.423, 189.085 )
 
@@ -13,9 +13,23 @@ transform/pos = Vector2( 746.423, 189.085 )
 
 transform/pos = Vector2( 454.229, 291.721 )
 
-[node name="Attractor" parent="Planet"]
+[node name="Camera2D" type="Camera2D" parent="."]
 
-gravity = 100.0
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
 
-[editable path="Planet"]
