@@ -1,13 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class GameManager : MonoBehaviour {
 	
-    public int Score { set; get; }
-	public int Int { set; get; }
-
     [SerializeField] float interWaveWaiter = 20f;
 	private float interWaveWaitCounter;
     [SerializeField] float minSpawnDistance = 50;
@@ -19,15 +15,25 @@ public class GameManager : MonoBehaviour {
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
     private int waveCounter = 1;
+	public int Wave {get { return waveCounter; } }
     private float spawnRate;
 
     private bool isInWave = false;
+
+    private int ressources = 100;
+	public int Ressources{get { return ressources; } }
+
+
+    public event System.Action WaveStart;
+    public event System.Action WaveEnd;
+    public event System.Action GameOver;
+
+
 
 
 
     // Use this for initialization
     void Start () {
-        Score = 0;
         WaitForNetxtWave();
 
     }
