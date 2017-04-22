@@ -36,7 +36,13 @@ public class Builder : MonoBehaviour {
 //		var mask = LayerMask.GetMask (new string[] { "" })
 		var hit = Physics2D.BoxCast (castOrigin, Vector2.one, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower);
 
-		_preview.gameObject.SetActive (hit.collider != null);
+
+		var canBuild = hit.collider != null;
+		_preview.gameObject.SetActive (canBuild);
+
+		if (!canBuild)
+			return;
+		
 
 		var targetPosition = castOrigin - upDir * hit.distance;
 		Debug.DrawLine (castOrigin, targetPosition, Color.magenta);
