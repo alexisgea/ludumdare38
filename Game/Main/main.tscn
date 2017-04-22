@@ -1,5 +1,21 @@
-[gd_scene format=1]
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://Player/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Planet/planet.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node"]
 
+[node name="RigidBody2D" parent="." instance=ExtResource( 1 )]
 
+transform/pos = Vector2( 746.423, 189.085 )
+
+[node name="Planet" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 454.229, 291.721 )
+
+[node name="Attractor" parent="Planet"]
+
+gravity = 100.0
+
+
+[editable path="Planet"]
