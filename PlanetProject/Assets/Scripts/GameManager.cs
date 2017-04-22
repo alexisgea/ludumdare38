@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(!isInWave) {
+        if(!isInWave) {
             interWaveWaitCounter -= Time.deltaTime;
 			if(interWaveWaitCounter <= 0) {
 				isInWave = true;
@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void StartNewWave() {
+        Debug.Log("Start Wave " + waveCounter);
         waveCounter += 1;
         spawnedAsteroid = 0;
         maxAsteroid = waveCounter * 10;
@@ -66,12 +67,14 @@ public class GameManager : MonoBehaviour {
     }
 
 	private void WaitForNetxtWave() {
+        Debug.Log("Wave End");
+		
         interWaveWaitCounter = interWaveWaiter;
 
     }
 
 	private void SpawnAsteroid() {
-		if(spawnedAsteroid <= maxAsteroid && Random.value < spawnRate) {
+		if(spawnedAsteroid < maxAsteroid && Random.value < spawnRate) {
             spawnedAsteroid += 1;
             GameObject asteroid = Instantiate(asteroidPrefab, GetRandomSpawnLocation(),
 			Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
