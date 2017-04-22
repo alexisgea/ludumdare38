@@ -6,6 +6,7 @@ public class Builder : MonoBehaviour {
 
 	public Transform _planet;
 	public Transform _cratePrefab;
+	public Transform _turretPrefab;
 
 	public Transform _preview;
 
@@ -43,6 +44,10 @@ public class Builder : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation);
+		}
+
+		if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			var newCrate = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation);
 		}
 	}
 
