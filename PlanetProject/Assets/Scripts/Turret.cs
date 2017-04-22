@@ -27,7 +27,7 @@ public class Turret : MonoBehaviour {
 	void Update () {
 		
         CheckForTarget();
-        AdjustAimAndShoot();
+		AdjustAimAndShoot();
 
     }
 
@@ -36,11 +36,13 @@ public class Turret : MonoBehaviour {
         LayerMask targetLayer = LayerMask.GetMask(new string[] { "target" });
         Collider2D[] castResults = Physics2D.OverlapCircleAll(transform.position, range, targetLayer);
 
-        if(castResults.Length > 0) {
+        if (castResults.Length > 0) {
 			target = castResults[0].transform;
-			foreach(Collider2D potentialTarget in castResults) {
-				if((transform.position - potentialTarget.transform.position).magnitude > (transform.position - target.transform.position).magnitude){
-					target = potentialTarget.transform;
+			foreach (Collider2D potentialTarget in castResults) {
+				if(CheckInArc (target.position)) {
+					if ((transform.position - potentialTarget.transform.position).sqrMagnitude < (transform.position - target.transform.position).sqrMagnitude){
+						target = potentialTarget.transform;
+					}
 				}
 			}
         }
@@ -56,22 +58,14 @@ public class Turret : MonoBehaviour {
 
         if(target != null) {
 
-            Vector3 toTarget = target.position - transform.position;
-            float angleToTarget = Vector2.Angle(toTarget, transform.up);
+			Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, toTarget);
+			mount.localRotation = Quaternion.Lerp(mount.rotation, targetRot, rotationSpeed);
 
-			if(Mathf.Abs(angleToTarget) < firingArc) {
-				Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, toTarget);
-				mount.rotation = Quaternion.Lerp(mount.rotation, targetRot, rotationSpeed);
-
-				if(lastFire >= RateOfFire/100)
-					Shoot();
-			}
-			else {
-        		mount.rotation = Quaternion.Lerp(mount.rotation, Quaternion.identity, rotationSpeed);
-			}
+			if (lastFire >= RateOfFire / 100)
+				Shoot ();
 		}
 		else {
-        	mount.rotation = Quaternion.Lerp(mount.rotation, Quaternion.identity, rotationSpeed);
+			mount.localRotation = Quaternion.Lerp(mount.localRotation, Quaternion.identity, rotationSpeed);
 		}
 	}
 
@@ -80,4 +74,12 @@ public class Turret : MonoBehaviour {
         GameObject projectile = Instantiate(projectilePrefab, gunTip.position, gunTip.rotation, projectileGroup);
         projectile.GetComponent<Rigidbody2D>().velocity = gunTip.rotation * Vector2.up * muzzleVelocity;
     }
+
+	private bool CheckInArc (Vector3 pos)
+	{
+		Vector3 toTarget = pos - transform.position;
+		float angleToTarget = Vector2.Angle (toTarget, transform.up);
+
+		return Mathf.Abs (angleToTarget) < firingArc;
+	}
 }
