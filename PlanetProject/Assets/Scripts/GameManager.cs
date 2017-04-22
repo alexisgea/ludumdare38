@@ -20,14 +20,24 @@ public class GameManager : MonoBehaviour {
     private float spawnRate;
 
     private bool isInWave = false;
-
-    private int ressources = 100;
-	public int Ressources{get { return ressources; } }
+    [SerializeField] int startRessources = 100;
+    private int ressources;
+    public int Ressources {
+        set {
+            ressources = value;
+			
+            if(RessourcesChanged != null)
+				RessourcesChanged.Invoke();
+        }
+        get {return ressources; }
+    }
+	//public int Ressources{get { return ressources; } }
 
 
     public event System.Action WaveStart;
     public event System.Action WaveEnd;
     public event System.Action GameOver;
+    public event System.Action RessourcesChanged;
 
 
 
@@ -35,6 +45,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Ressources = startRessources;
         WaitForNetxtWave();
 
     }

@@ -56,6 +56,6 @@ public class Player : MonoBehaviour
 
 	void Update ()
 	{
-		jumpInput = jumpInput || Input.GetKeyDown (KeyCode.Space);
+		jumpInput = jumpInput || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.W);
 	}
 }
