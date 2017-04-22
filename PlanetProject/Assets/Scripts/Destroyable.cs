@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Destroyable : MonoBehaviour {
 
-
 	public Transform _explosionPrefab;
 
 	public float _lifePoints = 10f;
@@ -12,6 +11,10 @@ public class Destroyable : MonoBehaviour {
 	public LayerMask _dealDamagesToLayer;
 
 	public float _dealDamages = 1f;
+
+	public bool _destroyOnDeath = true;
+
+	public UnityEngine.Events.UnityEvent _onDeath;
 
 	void OnCollisionEnter2D (Collision2D collider)
 	{
@@ -38,7 +41,12 @@ public class Destroyable : MonoBehaviour {
 
 		if (_lifePoints <= 0f) {
 			// Death
-			Destroy (gameObject);
+
+			_onDeath.Invoke ();
+
+			if (_destroyOnDeath) {
+				Destroy (gameObject);
+			}
 
 			if (_explosionPrefab != null) {
 				Instantiate (_explosionPrefab);
