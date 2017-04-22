@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
     public int Ressources {
         set {
             ressources = value;
-			
+
             if(RessourcesChanged != null)
 				RessourcesChanged.Invoke();
         }
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-	private void RaiseGameOver() {
+	public void RaiseGameOver() {
 		if(GameOver != null) {
             GameOver.Invoke();
         }
