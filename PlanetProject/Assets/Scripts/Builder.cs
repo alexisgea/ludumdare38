@@ -16,7 +16,9 @@ public class Builder : MonoBehaviour {
 
 	private bool _placeInput;
 
-	void Update ()
+    [SerializeField] Transform buildGroup;
+
+    void Update ()
 	{
 		var spawnTarget = transform.position + transform.right * _horisontalDistance;
 		var upDir = (spawnTarget - _planet.position).normalized;
@@ -43,11 +45,11 @@ public class Builder : MonoBehaviour {
 		_preview.position = targetPosition;
 
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation);
+			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
 		}
 
 		if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			var newCrate = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation);
+			var newCrate = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
 		}
 	}
 
