@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 	public float acceleration = 10f;
 	public float jumpForce = 100f;
 	bool jumpInput;
+	
 
 	void FixedUpdate ()
 	{
