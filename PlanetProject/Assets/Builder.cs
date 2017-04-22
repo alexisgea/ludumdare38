@@ -5,13 +5,15 @@ using UnityEngine;
 public class Builder : MonoBehaviour {
 
 	public Transform _planet;
-	public Transform _crate;
+	public Transform _cratePrefab;
 
 	public Transform _preview;
 
 	public float _horisontalDistance = 1f;
 	public float _buildHigher = 5f;
 	public float _buildLower = 4f;
+
+	private bool _placeInput;
 
 	void Update ()
 	{
@@ -28,6 +30,7 @@ public class Builder : MonoBehaviour {
 
 		var boxRotation = Quaternion.LookRotation (Vector3.forward, upDir);
 
+//		var mask = LayerMask.GetMask (new string[] { "" })
 		var hit = Physics2D.BoxCast (castOrigin, Vector2.one, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower);
 
 		_preview.gameObject.SetActive (hit.collider != null);
@@ -37,10 +40,18 @@ public class Builder : MonoBehaviour {
 
 		_preview.rotation = boxRotation;
 		_preview.position = targetPosition;
+
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation);
+		}
 	}
 
 	void DebugPoint (Vector2 point, Color col)
 	{
 		Debug.DrawLine (Vector2.zero, point, col);
 	}
+
+//	void Update ()
+//	{
+//	}
 }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
-
+public class Player : MonoBehaviour
+{
+	public Transform graphics;
 	public Transform planet;
 	public float speed = 10f;
 	public float acceleration = 10f;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour {
 
 		var targetSpeed = Input.GetAxisRaw ("Horizontal") * speed;
 
+
 		velocity.x = Mathf.MoveTowards (velocity.x, targetSpeed, acceleration * Time.deltaTime);
 
 		rb.velocity = transform.TransformVector(velocity);
@@ -30,6 +32,12 @@ public class Player : MonoBehaviour {
 		var delta = transform.position - planet.position;
 		var rotation = Quaternion.LookRotation (Vector3.forward, delta);
 		rb.MoveRotation (rotation.eulerAngles.z);
+
+		if (Mathf.Abs (Input.GetAxisRaw ("Horizontal")) > 0.1f) {
+			var rot = graphics.localEulerAngles;
+			rot.y = targetSpeed < 0 ? 180f : 0f;
+			graphics.localEulerAngles = rot;
+		}
 	}
 
 	void Update ()
