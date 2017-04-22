@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
 		rb.velocity = transform.TransformVector(velocity);
 
 
-//		rb.AddRelativeForce (new Vector2 (Input.GetAxis ("Horizontal") * force, 0f) * Time.deltaTime);
+//rb.AddRelativeForce (new Vector2 (Input.GetAxis ("Horizontal") * force, 0f) * Time.deltaTime);
 
 		if (jumpInput) {
 			jumpInput = false;
