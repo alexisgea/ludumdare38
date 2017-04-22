@@ -10,7 +10,7 @@ public class Builder : MonoBehaviour {
 
 	public Transform _preview;
 
-	public float _horisontalDistance = 1f;
+	public float _horisontalDistance = -1.2f;
 	public float _buildHigher = 5f;
 	public float _buildLower = 4f;
 
@@ -57,12 +57,12 @@ public class Builder : MonoBehaviour {
 		_preview.position = targetPosition;
 
 		if (Input.GetKeyDown (KeyCode.J) && gameManager.Ressources > _cratePrefab.GetComponent<Buildable>().Cost)  {
-			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
+			Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
             gameManager.Ressources -= _cratePrefab.GetComponent<Buildable>().Cost;
         }
 
 		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources > _turretPrefab.GetComponent<Buildable>().Cost) {
-			var newTurret = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
+			Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
             gameManager.Ressources -= _turretPrefab.GetComponent<Buildable>().Cost;
 		}
 	}
