@@ -10,11 +10,21 @@ public class Player : MonoBehaviour
 	public float acceleration = 10f;
 	public float jumpForce = 100f;
 	bool jumpInput;
-	
+
+
+	void Start ()
+	{
+		var rb = GetComponent<Rigidbody2D>();
+		rb.centerOfMass = new Vector2(0f, 0f);
+	}
 
 	void FixedUpdate ()
 	{
 		var rb = GetComponent<Rigidbody2D>();
+
+		var delta = transform.position - planet.position;
+		var rotation = Quaternion.LookRotation (Vector3.forward, delta);
+		rb.MoveRotation (rotation.eulerAngles.z);
 
 		var velocity = transform.InverseTransformDirection(rb.velocity);
 
@@ -22,15 +32,12 @@ public class Player : MonoBehaviour
 
 		//var deltaSpeed = targetSpeed - velocity.x;
 
-		//rb.AddForce (new Vector2 (deltaSpeed, 0f) * rb.mass, ForceMode2D.Force);
-
+		//rb.AddRelativeForce (new Vector2 (deltaSpeed, 0f) * rb.mass, ForceMode2D.Force);
 
 		velocity.x = Mathf.MoveTowards (velocity.x, targetSpeed, acceleration * Time.deltaTime);
 
 		//rb.AddRelativeForce (new Vector2(velocity.x, 0f));
 		//print (velocity); 
-
-
 
 		rb.velocity = transform.TransformVector(velocity);
 
@@ -39,9 +46,6 @@ public class Player : MonoBehaviour
 			rb.AddRelativeForce (new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 		}
 
-		var delta = transform.position - planet.position;
-		var rotation = Quaternion.LookRotation (Vector3.forward, delta);
-		rb.MoveRotation (rotation.eulerAngles.z);
 
 		if (Mathf.Abs (Input.GetAxisRaw ("Horizontal")) > 0.1f) {
 			var rot = graphics.localEulerAngles;
