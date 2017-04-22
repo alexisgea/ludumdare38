@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 	
-    [SerializeField] float interWaveWaiter = 20f;
+    [SerializeField] float interWaveWaiter = 2f;
+	public float InterWaveWaiter {get { return interWaveWaiter; } }
 	private float interWaveWaitCounter;
     [SerializeField] float minSpawnDistance = 50;
 	[SerializeField] float maxSpawnDistance = 100;
@@ -64,12 +65,15 @@ public class GameManager : MonoBehaviour {
         spawnedAsteroid = 0;
         maxAsteroid = waveCounter * 10;
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
+        RaiseWaveStart();
     }
 
 	private void WaitForNetxtWave() {
         Debug.Log("Wave End");
 		
         interWaveWaitCounter = interWaveWaiter;
+        RaiseWaveEnd();
+		
 
     }
 
@@ -84,6 +88,24 @@ public class GameManager : MonoBehaviour {
 	private Vector2 GetRandomSpawnLocation() {
 		return Random.insideUnitCircle.normalized * Random.Range(minSpawnDistance, maxSpawnDistance);
     }
+
+	private void RaiseWaveStart() {
+		if(WaveStart != null) {
+            WaveStart.Invoke();
+        }
+	}
+
+	private void RaiseWaveEnd() {
+		if(WaveEnd != null) {
+            WaveEnd.Invoke();
+        }
+	}
+
+	private void RaiseGameOver() {
+		if(GameOver != null) {
+            GameOver.Invoke();
+        }
+	}
 
 
 }
