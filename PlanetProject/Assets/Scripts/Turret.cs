@@ -61,8 +61,8 @@ public class Turret : MonoBehaviour {
         if(target != null) {
 
 			Vector3 toTarget = target.position - transform.position;
-			Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, toTarget);
-			mount.localRotation = Quaternion.Lerp(mount.localRotation, targetRot, rotationSpeed);
+			Quaternion targetRot = Quaternion.LookRotation(transform.forward, toTarget);
+			mount.rotation = Quaternion.Lerp(mount.rotation, targetRot, rotationSpeed);
 
 			if (lastFire >= RateOfFire / 100)
 				Shoot ();
