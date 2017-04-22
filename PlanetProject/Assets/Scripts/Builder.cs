@@ -16,7 +16,13 @@ public class Builder : MonoBehaviour {
 
 	private bool _placeInput;
 
+    private GameManager gameManager;
+
     [SerializeField] Transform buildGroup;
+
+	void Start() {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     void Update ()
 	{
@@ -50,12 +56,14 @@ public class Builder : MonoBehaviour {
 		_preview.rotation = boxRotation;
 		_preview.position = targetPosition;
 
-		if (Input.GetKeyDown (KeyCode.J)) {
+		if (Input.GetKeyDown (KeyCode.J) && gameManager.Ressources > _cratePrefab.GetComponent<Buildable>().Cost)  {
 			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
-		}
+            gameManager.Ressources -= _cratePrefab.GetComponent<Buildable>().Cost;
+        }
 
-		if (Input.GetKeyDown (KeyCode.K)) {
-			var newCrate = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
+		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources > _turretPrefab.GetComponent<Buildable>().Cost) {
+			var newTurret = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
+            gameManager.Ressources -= _turretPrefab.GetComponent<Buildable>().Cost;
 		}
 	}
 
@@ -64,7 +72,4 @@ public class Builder : MonoBehaviour {
 		Debug.DrawLine (Vector2.zero, point, col);
 	}
 
-//	void Update ()
-//	{
-//	}
 }
