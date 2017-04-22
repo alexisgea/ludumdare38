@@ -20,8 +20,17 @@ public class Player : MonoBehaviour
 
 		var targetSpeed = Input.GetAxisRaw ("Horizontal") * speed;
 
+		var deltaSpeed = targetSpeed - velocity.x;
 
-		velocity.x = Mathf.MoveTowards (velocity.x, targetSpeed, acceleration * Time.deltaTime);
+		rb.AddForce (new Vector2 (deltaSpeed, 0f), ForceMode2D.Force);
+
+
+		//velocity.x = Mathf.MoveTowards (velocity.x, targetSpeed, acceleration * Time.deltaTime);
+
+		//rb.AddRelativeForce (new Vector2(velocity.x, 0f));
+		//print (velocity); 
+
+
 
 		rb.velocity = transform.TransformVector(velocity);
 

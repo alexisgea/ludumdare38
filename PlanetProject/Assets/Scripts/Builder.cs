@@ -50,11 +50,11 @@ public class Builder : MonoBehaviour {
 		_preview.rotation = boxRotation;
 		_preview.position = targetPosition;
 
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+		if (Input.GetKeyDown (KeyCode.J)) {
 			var newCrate = Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
 		}
 
-		if (Input.GetKeyDown (KeyCode.Alpha2)) {
+		if (Input.GetKeyDown (KeyCode.K)) {
 			var newCrate = Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
 		}
 	}
