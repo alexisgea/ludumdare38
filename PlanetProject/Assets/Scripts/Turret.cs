@@ -15,7 +15,6 @@ public class Turret : MonoBehaviour {
 	[SerializeField] Transform projectileGroup;
 
 	private Transform target;
-    private Vector3 toTarget;
     private float lastFire = 0f;
 
     // Use this for initialization
@@ -36,20 +35,23 @@ public class Turret : MonoBehaviour {
         LayerMask targetLayer = LayerMask.GetMask(new string[] { "target" });
         Collider2D[] castResults = Physics2D.OverlapCircleAll(transform.position, range, targetLayer);
 
-        if (castResults.Length > 0) {
-			target = castResults[0].transform;
+		Debug.Log (castResults.Length);
+
+		target = null;
+
+		var bestDist = Mathf.Infinity;
+
+		if (castResults.Length > 0) {
 			foreach (Collider2D potentialTarget in castResults) {
-				if(CheckInArc (target.position)) {
-					if ((transform.position - potentialTarget.transform.position).sqrMagnitude < (transform.position - target.transform.position).sqrMagnitude){
+				if(CheckInArc (potentialTarget.transform.position)) {
+					var currentDist = (transform.position - potentialTarget.transform.position).sqrMagnitude;
+					if (currentDist < bestDist) {
 						target = potentialTarget.transform;
+						bestDist = currentDist;
 					}
 				}
 			}
         }
-		else if (target != null) {
-            target = null;
-        }
-		
 	}
 
 	private void AdjustAimAndShoot() {
@@ -58,8 +60,9 @@ public class Turret : MonoBehaviour {
 
         if(target != null) {
 
+			Vector3 toTarget = target.position - transform.position;
 			Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, toTarget);
-			mount.localRotation = Quaternion.Lerp(mount.rotation, targetRot, rotationSpeed);
+			mount.localRotation = Quaternion.Lerp(mount.localRotation, targetRot, rotationSpeed);
 
 			if (lastFire >= RateOfFire / 100)
 				Shoot ();
