@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AimMode{direct, velocity}
+
 public class Turret : MonoBehaviour {
 
+    [SerializeField] AimMode aimMode = AimMode.velocity;
+
+    [SerializeField] float aimPrecision = 1f;
     [SerializeField] float range = 100;
 	[SerializeField] float rotationSpeed = 0.1f;
     [SerializeField] float firingArc = 60;
@@ -57,8 +62,14 @@ public class Turret : MonoBehaviour {
         lastFire += Time.deltaTime;
 
         if(target != null) {
+			Vector3 toTarget = target.position - transform.position + (Vector3)Random.insideUnitCircle.normalized * aimPrecision;
 
-			Vector3 toTarget = target.position - transform.position;
+			switch(aimMode) {
+				case AimMode.velocity:
+                    toTarget += (Vector3)target.GetComponent<Rigidbody2D>().velocity ;
+                    break;
+				
+            }
 			Quaternion targetRot = Quaternion.LookRotation(transform.forward, toTarget);
 			mount.rotation = Quaternion.Lerp(mount.rotation, targetRot, rotationSpeed);
 
