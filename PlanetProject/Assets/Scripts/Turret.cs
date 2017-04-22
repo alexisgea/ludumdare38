@@ -35,8 +35,6 @@ public class Turret : MonoBehaviour {
         LayerMask targetLayer = LayerMask.GetMask(new string[] { "target" });
         Collider2D[] castResults = Physics2D.OverlapCircleAll(transform.position, range, targetLayer);
 
-		Debug.Log (castResults.Length);
-
 		target = null;
 
 		var bestDist = Mathf.Infinity;
