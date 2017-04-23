@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private Vector2 GetRandomSpawnLocation() {
-		Vector2 spawnDir = Quaternion.Euler(0, 0, Random.Range(-spawAngleSpread, spawAngleSpread)) * asteroidSources[Random.Range(0, asteroidSources.Length-1)];
+		Vector2 spawnDir = Quaternion.Euler(0, 0, Random.Range(-spawAngleSpread, spawAngleSpread)) * asteroidSources[Random.Range(0, asteroidSources.Length)];
         return spawnDir * Random.Range(minSpawnDistance, maxSpawnDistance);
     }
 
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour {
 
     private void PrepareNextWaveSources() {
 
-        asteroidSources = new Vector2[1 + (int)((Wave-1)/2)];
+        asteroidSources = new Vector2[1 + (int)((Wave)/2)];
 
         for (int i = 0; i < asteroidSources.Length; i++) {
             asteroidSources[i] = Random.insideUnitCircle.normalized;
