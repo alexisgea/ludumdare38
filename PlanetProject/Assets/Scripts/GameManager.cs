@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
-    private int waveCounter = 1;
+    private int waveCounter = 0;
 	public int Wave {get { return waveCounter; } }
     private float spawnRate;
 
@@ -91,8 +91,7 @@ public class GameManager : MonoBehaviour {
 	private void SpawnAsteroid() {
 		if(spawnedAsteroid < maxAsteroid && Random.value < spawnRate) {
             spawnedAsteroid += 1;
-            GameObject asteroid = Instantiate(asteroidPrefab, GetRandomSpawnLocation(),
-			Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
+            Instantiate(asteroidPrefab, GetRandomSpawnLocation(), Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
         }
 	}
 
@@ -116,7 +115,7 @@ public class GameManager : MonoBehaviour {
 		if(GameOver != null) {
             GameOver.Invoke();
         }
-	}
+    }
 
 
 }

@@ -11,8 +11,9 @@ public class UiManager : MonoBehaviour {
     [SerializeField] GameObject boxItem;
     [SerializeField] GameObject turretItem;
     [SerializeField] TextFade waveMessage;
-    [SerializeField] Text gameOver;
-	
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] Text tempScoreField;
+
 
 
     // Use this for initialization
@@ -31,10 +32,11 @@ public class UiManager : MonoBehaviour {
 
 	private void OnWaveStart() {
         waveMessage.DisplayMessage("Wave " + gameManager.Wave + " starts");
+        waveCounter.GetComponentInChildren<Text>().text = gameManager.Wave.ToString();
     }
 
 	private void OnWaveEnd() {
-		waveMessage.DisplayMessage("Wave finished /n next wave in " + gameManager.InterWaveWaiter + " sec");
+		waveMessage.DisplayMessage("Wave finished \n next wave in " + gameManager.InterWaveWaiter + " sec");
 	}
 
 	private void OnRessourcesChanged() {
@@ -42,8 +44,16 @@ public class UiManager : MonoBehaviour {
     }
 
 	private void OnGameOver() {
+        tempScoreField.text = gameManager.Wave.ToString();
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
+    }
 
-	}
+
+    public void Retry() {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        Time.timeScale = 1;
+    }
 
 	
 }
