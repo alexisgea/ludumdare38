@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Destroyable : MonoBehaviour {
 
-	public Transform _explosionPrefab;
+	public Transform _impactExplosionPrefab;
+	public Transform _destroyedExplosionPrefab;
+
     [SerializeField] float explosionForce = 1f;
     //[SerializeField] GameObject debrisPrefab;
     //[SerializeField] float debrisScaleRange = 0.5f;
@@ -45,7 +47,7 @@ public class Destroyable : MonoBehaviour {
 		if (isInLayermask)
 		{
 			// We want to hurt the thing we touched! -- Kamikaz
-			Die ();
+			Die (selfKill: true);
 
 			// Damagable
 			var other = collider.gameObject.GetComponent<Destroyable> ();
@@ -71,7 +73,7 @@ public class Destroyable : MonoBehaviour {
 		}
 	}
 
-	public void Die ()
+	public void Die (bool selfKill = false)
 	{
 		_onDeath.Invoke ();
 
@@ -79,8 +81,9 @@ public class Destroyable : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
-		if (_explosionPrefab != null) {
-			Instantiate (_explosionPrefab);
+		var explosion = selfKill ? _impactExplosionPrefab : _destroyedExplosionPrefab;
+		if (explosion != null) {
+			Instantiate (explosion);
 		}
 	}
 }
