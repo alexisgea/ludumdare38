@@ -13,8 +13,10 @@ public class Builder : MonoBehaviour {
 	public float _horisontalDistance = -1.2f;
 	public float _buildHigher = 5f;
 	public float _buildLower = 4f;
+	public LayerMask _layerMask;
 
-	private bool _placeInput;
+
+	private bool _buildInput;
 
     private GameManager gameManager;
 
@@ -44,7 +46,7 @@ public class Builder : MonoBehaviour {
 		var size = _cratePrefab.GetComponent<BoxCollider2D> ().size * _cratePrefab.localScale.x;
 
 //		var mask = LayerMask.GetMask (new string[] { "" })
-		var hit = Physics2D.BoxCast (castOrigin, size, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower);
+		var hit = Physics2D.BoxCast (castOrigin, size, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower, _layerMask);
 
 
 		var canBuild = hit.collider != null;
