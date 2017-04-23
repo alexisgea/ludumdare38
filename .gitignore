@@ -1,8 +1,8 @@
 /PlanetProject/[Ll]ibrary/
 /PlanetProject/[Tt]emp/
 /PlanetProject/[Oo]bj/
-/PlanetProject/[Bb]uild/
-/PlanetProject/[Bb]uilds/
+/[Bb]uild/
+/[Bb]uilds/
 /PlanetProject/Assets/AssetStoreTools*
 
 # Visual Studio 2015 cache directory

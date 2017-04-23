@@ -44,7 +44,7 @@ public class UiManager : MonoBehaviour {
     }
 
 	private void OnGameOver() {
-        tempScoreField.text = gameManager.Wave.ToString();
+        tempScoreField.text = "You reached wave " + gameManager.Wave.ToString();
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
     }
@@ -53,6 +53,10 @@ public class UiManager : MonoBehaviour {
     public void Retry() {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
         Time.timeScale = 1;
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 
 	
