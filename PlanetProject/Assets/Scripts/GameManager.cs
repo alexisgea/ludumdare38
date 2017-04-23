@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] GameObject asteroidPrefab;
     [SerializeField] Transform asteroidGroup;
 
+	[SerializeField] float asteroidsMinLife;
+	[SerializeField] float asteroidsMaxLife;
+	[SerializeField] float asteroidsLifeExtraScale;
+
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
     private int waveCounter = 0;
@@ -91,8 +95,21 @@ public class GameManager : MonoBehaviour {
 	private void SpawnAsteroid() {
 		if(spawnedAsteroid < maxAsteroid && Random.value < spawnRate) {
             spawnedAsteroid += 1;
-            Instantiate(asteroidPrefab, GetRandomSpawnLocation(), Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
+
+			// Instantiate
+			var asteroid = Instantiate(asteroidPrefab, GetRandomSpawnLocation(), Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
+
+			// Health and damages
+			var asteroidDestroyable = asteroid.GetComponent<Destroyable> ();
+			asteroidDestroyable.lifePoints = Random.Range(asteroidsMinLife, asteroidsMaxLife + Wave);
+			asteroidDestroyable.dealDamages = Mathf.Max (1f, asteroidDestroyable.lifePoints / 10);
+
+			// Scale
+			var baseScale = transform.localScale.x;
+			float scaleBonus = asteroidDestroyable.lifePoints * asteroidsLifeExtraScale;
+			transform.localScale = new Vector3(baseScale + scaleBonus, baseScale + scaleBonus, 1f);
         }
+			
 	}
 
 	private Vector2 GetRandomSpawnLocation() {
