@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] float interWaveWaiter = 2f;
 	public float InterWaveWaiter {get { return interWaveWaiter; } }
 	private float interWaveWaitCounter;
+    [SerializeField] float spawAngleSpread = 10f;
     [SerializeField] float minSpawnDistance = 50;
 	[SerializeField] float maxSpawnDistance = 100;
     [SerializeField] float spawnRateDivider = 20f;
@@ -31,7 +32,9 @@ public class GameManager : MonoBehaviour {
         }
         get {return ressources; }
     }
-	//public int Ressources{get { return ressources; } }
+    //public int Ressources{get { return ressources; } }
+
+    private Vector2[] asteroidSources;
 
 
     public event System.Action WaveStart;
@@ -71,6 +74,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void StartNewWave() {
+
+        PrepareAsteroidSources();
+
         waveCounter += 1;
         Debug.Log("Start Wave " + waveCounter);
         spawnedAsteroid = 0;
@@ -91,12 +97,14 @@ public class GameManager : MonoBehaviour {
 	private void SpawnAsteroid() {
 		if(spawnedAsteroid < maxAsteroid && Random.value < spawnRate) {
             spawnedAsteroid += 1;
+            
             Instantiate(asteroidPrefab, GetRandomSpawnLocation(), Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
         }
 	}
 
 	private Vector2 GetRandomSpawnLocation() {
-		return Random.insideUnitCircle.normalized * Random.Range(minSpawnDistance, maxSpawnDistance);
+        Vector2 spawnDir = Quaternion.Euler(0, 0, Random.Range(-spawAngleSpread, spawAngleSpread)) * asteroidSources[Random.Range(0, asteroidSources.Length-1)];
+        return spawnDir * Random.Range(minSpawnDistance, maxSpawnDistance);
     }
 
 	private void RaiseWaveStart() {
@@ -115,6 +123,16 @@ public class GameManager : MonoBehaviour {
 		if(GameOver != null) {
             GameOver.Invoke();
         }
+    }
+
+    private void PrepareAsteroidSources() {
+
+        asteroidSources = new Vector2[1 + (int)((Wave-1)/2)];
+
+        for (int i = 0; i < asteroidSources.Length; i++) {
+            asteroidSources[i] = Random.insideUnitCircle.normalized;
+        }
+
     }
 
 
