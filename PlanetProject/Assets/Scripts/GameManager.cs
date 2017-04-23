@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField] float spawnRateDivider = 20f;
     [SerializeField] GameObject asteroidPrefab;
     [SerializeField] Transform asteroidGroup;
+    [SerializeField] Transform waveWarningGroup;
+    [SerializeField] GameObject waveWarningPrefab;
 
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
@@ -75,13 +77,14 @@ public class GameManager : MonoBehaviour {
 
 	private void StartNewWave() {
 
-        PrepareAsteroidSources();
 
         waveCounter += 1;
         Debug.Log("Start Wave " + waveCounter);
         spawnedAsteroid = 0;
         maxAsteroid = waveCounter * 10;
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
+        DestroyWaveWarnings();
+        
         RaiseWaveStart();
     }
 
@@ -89,8 +92,10 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Wave End");
 		
         interWaveWaitCounter = interWaveWaiter;
+        PrepareNextWaveSources();
+        UpdateWaveWarnings();
+        
         RaiseWaveEnd();
-		
 
     }
 
@@ -125,7 +130,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void PrepareAsteroidSources() {
+    private void PrepareNextWaveSources() {
 
         asteroidSources = new Vector2[1 + (int)((Wave-1)/2)];
 
@@ -133,6 +138,23 @@ public class GameManager : MonoBehaviour {
             asteroidSources[i] = Random.insideUnitCircle.normalized;
         }
 
+    }
+
+    private void UpdateWaveWarnings() {
+
+        DestroyWaveWarnings();
+
+        //Bounds camBounds = new Bounds(Vector3.zero, Vector3())
+
+        foreach(Vector2 direction in asteroidSources) {
+            Instantiate(waveWarningPrefab, new Vector3(direction.x * 15, direction.y * 15, 0), Quaternion.identity, waveWarningGroup);
+        }
+    }
+
+    private void DestroyWaveWarnings() {
+        for (int i = 0; i < waveWarningGroup.childCount; i++) {
+            Destroy(waveWarningGroup.GetChild(i).gameObject);
+        }
     }
 
 
