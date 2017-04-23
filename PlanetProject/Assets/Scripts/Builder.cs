@@ -56,12 +56,12 @@ public class Builder : MonoBehaviour {
 		_preview.rotation = boxRotation;
 		_preview.position = targetPosition;
 
-		if (Input.GetKeyDown (KeyCode.J) && gameManager.Ressources > _cratePrefab.GetComponent<Buildable>().Cost)  {
+		if (Input.GetKeyDown (KeyCode.J) && gameManager.Ressources >= _cratePrefab.GetComponent<Buildable>().Cost)  {
 			Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
             gameManager.Ressources -= _cratePrefab.GetComponent<Buildable>().Cost;
         }
 
-		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources > _turretPrefab.GetComponent<Buildable>().Cost) {
+		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources >= _turretPrefab.GetComponent<Buildable>().Cost) {
 			Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
             gameManager.Ressources -= _turretPrefab.GetComponent<Buildable>().Cost;
 		}

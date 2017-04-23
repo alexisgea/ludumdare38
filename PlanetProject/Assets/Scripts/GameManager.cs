@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void StartNewWave() {
-        Debug.Log("Start Wave " + waveCounter);
         waveCounter += 1;
+        Debug.Log("Start Wave " + waveCounter);
         spawnedAsteroid = 0;
         maxAsteroid = waveCounter * 10;
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
