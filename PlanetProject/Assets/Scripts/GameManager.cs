@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] float interWaveWaiter = 2f;
 	public float InterWaveWaiter {get { return interWaveWaiter; } }
 	private float interWaveWaitCounter;
+    [SerializeField] int asteroidDensity = 3;
     [SerializeField] float spawAngleSpread = 15f;
     [SerializeField] float minSpawnDistance = 50;
 	[SerializeField] float maxSpawnDistance = 100;
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour {
         waveCounter += 1;
         Debug.Log("Start Wave " + waveCounter);
         spawnedAsteroid = 0;
-        maxAsteroid = waveCounter * 10;
+        maxAsteroid = waveCounter * asteroidDensity;
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
 
         DestroyWaveWarnings();

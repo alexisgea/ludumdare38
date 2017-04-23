@@ -9,7 +9,7 @@ public class Shooter : MonoBehaviour {
 
 	public void Shoot ()
 	{
-		var rb = Instantiate<Rigidbody2D> (_projectilePrefab, transform.position, transform.rotation);
+		var rb = Instantiate<Rigidbody2D> (_projectilePrefab, transform.position, transform.rotation, transform);
 		rb.AddForce (transform.up * _muzzleVelocity, ForceMode2D.Impulse);
 	}
 }
