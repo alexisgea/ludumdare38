@@ -23,7 +23,6 @@ public class RessourceCollector : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if(other.gameObject.layer == LayerMask.NameToLayer("debris")) {
-        	Debug.Log("TAG TAG TAG");
             gameManager.Ressources += other.gameObject.GetComponent<Debris>().RessourceValue;
             Destroy(other.gameObject);
         }

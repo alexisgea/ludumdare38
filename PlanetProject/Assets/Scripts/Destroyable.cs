@@ -33,8 +33,10 @@ public class Destroyable : MonoBehaviour {
             startLifePoints = LifePoints;
             DealDamages = LifePoints / 10;
             DealDamages = DealDamages <= 0f ? 1f : DealDamages;
-            float scaleFactor = LifePoints / scaleDevider;
-			transform.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
+
+			var baseScale = transform.localScale.x;
+            float scaleBonus = LifePoints / scaleDevider;
+			transform.localScale = new Vector3(baseScale + scaleBonus, baseScale + scaleBonus, 1f);
 		}
     }
 

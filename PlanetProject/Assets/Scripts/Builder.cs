@@ -26,6 +26,8 @@ public class Builder : MonoBehaviour {
 
     void Update ()
 	{
+		
+
 		var spawnTarget = transform.position + transform.right * _horisontalDistance;
 		var upDir = (spawnTarget - _planet.position).normalized;
 
@@ -39,8 +41,10 @@ public class Builder : MonoBehaviour {
 
 		var boxRotation = Quaternion.LookRotation (Vector3.forward, upDir);
 
+		var size = _cratePrefab.GetComponent<BoxCollider2D> ().size;
+
 //		var mask = LayerMask.GetMask (new string[] { "" })
-		var hit = Physics2D.BoxCast (castOrigin, Vector2.one, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower);
+		var hit = Physics2D.BoxCast (castOrigin, size, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower);
 
 
 		var canBuild = hit.collider != null;
