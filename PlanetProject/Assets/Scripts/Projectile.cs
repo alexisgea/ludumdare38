@@ -11,7 +11,8 @@ public class Projectile : MonoBehaviour {
 	void Update () {
         timer -= Time.deltaTime;
 		if(timer < 0f) {
-			Destroy(this.gameObject);
+            Debug.LogWarning("DESTROYING BULLET");
+            Destroy(this.gameObject);
         }
     }
 
