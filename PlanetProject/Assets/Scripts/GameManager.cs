@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] float interWaveWaiter = 2f;
 	public float InterWaveWaiter {get { return interWaveWaiter; } }
 	private float interWaveWaitCounter;
-    [SerializeField] float spawAngleSpread = 10f;
+    [SerializeField] float spawAngleSpread = 15f;
     [SerializeField] float minSpawnDistance = 50;
 	[SerializeField] float maxSpawnDistance = 100;
     [SerializeField] float spawnRateDivider = 20f;
