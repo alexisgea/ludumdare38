@@ -165,7 +165,8 @@ public class GameManager : MonoBehaviour {
         //Bounds camBounds = new Bounds(Vector3.zero, Vector3())
 
         foreach(Vector2 direction in asteroidSources) {
-            Instantiate(waveWarningPrefab, new Vector3(direction.x * 15, direction.y * 15, 0), Quaternion.identity, waveWarningGroup);
+            Instantiate(waveWarningPrefab, (Vector3)direction * 15,
+            Quaternion.LookRotation(Vector3.forward, (Vector3)direction) , waveWarningGroup);
         }
     }
 
