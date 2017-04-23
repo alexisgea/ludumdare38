@@ -7,15 +7,19 @@ public class GameManager : MonoBehaviour {
     [SerializeField] float interWaveWaiter = 2f;
 	public float InterWaveWaiter {get { return interWaveWaiter; } }
 	private float interWaveWaitCounter;
+    [SerializeField] float spawAngleSpread = 15f;
     [SerializeField] float minSpawnDistance = 50;
 	[SerializeField] float maxSpawnDistance = 100;
     [SerializeField] float spawnRateDivider = 20f;
     [SerializeField] GameObject asteroidPrefab;
     [SerializeField] Transform asteroidGroup;
+    [SerializeField] Transform waveWarningGroup;
+    [SerializeField] GameObject waveWarningPrefab;
 
 	[SerializeField] float asteroidsMinLife;
 	[SerializeField] float asteroidsMaxLife;
 	[SerializeField] float asteroidsLifeExtraScale;
+
 
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour {
         get {return ressources; }
     }
 	//public int Ressources{get { return ressources; } }
+
+    private Vector2[] asteroidSources;
 
 
     public event System.Action WaveStart;
@@ -80,6 +86,9 @@ public class GameManager : MonoBehaviour {
         spawnedAsteroid = 0;
         maxAsteroid = waveCounter * 10;
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
+
+        DestroyWaveWarnings();
+
         RaiseWaveStart();
     }
 
@@ -87,6 +96,10 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Wave End");
 		
         interWaveWaitCounter = interWaveWaiter;
+
+        PrepareNextWaveSources();
+        UpdateWaveWarnings();
+
         RaiseWaveEnd();
 		
 
@@ -113,7 +126,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private Vector2 GetRandomSpawnLocation() {
-		return Random.insideUnitCircle.normalized * Random.Range(minSpawnDistance, maxSpawnDistance);
+		Vector2 spawnDir = Quaternion.Euler(0, 0, Random.Range(-spawAngleSpread, spawAngleSpread)) * asteroidSources[Random.Range(0, asteroidSources.Length-1)];
+        return spawnDir * Random.Range(minSpawnDistance, maxSpawnDistance);
     }
 
 	private void RaiseWaveStart() {
@@ -131,6 +145,33 @@ public class GameManager : MonoBehaviour {
 	public void RaiseGameOver() {
 		if(GameOver != null) {
             GameOver.Invoke();
+        }
+    }
+
+    private void PrepareNextWaveSources() {
+
+        asteroidSources = new Vector2[1 + (int)((Wave-1)/2)];
+
+        for (int i = 0; i < asteroidSources.Length; i++) {
+            asteroidSources[i] = Random.insideUnitCircle.normalized;
+        }
+
+    }
+
+    private void UpdateWaveWarnings() {
+
+        DestroyWaveWarnings();
+
+        //Bounds camBounds = new Bounds(Vector3.zero, Vector3())
+
+        foreach(Vector2 direction in asteroidSources) {
+            Instantiate(waveWarningPrefab, new Vector3(direction.x * 15, direction.y * 15, 0), Quaternion.identity, waveWarningGroup);
+        }
+    }
+
+    private void DestroyWaveWarnings() {
+        for (int i = 0; i < waveWarningGroup.childCount; i++) {
+            Destroy(waveWarningGroup.GetChild(i).gameObject);
         }
     }
 
