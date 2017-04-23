@@ -24,7 +24,7 @@ public class Destroyable : MonoBehaviour {
 		if (isInLayermask)
 		{
 			// We want to hurt the thing we touched! -- Kamikaz
-			Destroy (gameObject);
+			Die ();
 
 			// Damagable
 			var other = collider.gameObject.GetComponent<Destroyable> ();
@@ -40,17 +40,20 @@ public class Destroyable : MonoBehaviour {
 		_lifePoints -= amount;
 
 		if (_lifePoints <= 0f) {
-			// Death
+			Die ();
+		}
+	}
 
-			_onDeath.Invoke ();
+	public void Die ()
+	{
+		_onDeath.Invoke ();
 
-			if (_destroyOnDeath) {
-				Destroy (gameObject);
-			}
+		if (_destroyOnDeath) {
+			Destroy (gameObject);
+		}
 
-			if (_explosionPrefab != null) {
-				Instantiate (_explosionPrefab);
-			}
+		if (_explosionPrefab != null) {
+			Instantiate (_explosionPrefab);
 		}
 	}
 }
