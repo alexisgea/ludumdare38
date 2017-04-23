@@ -32,6 +32,7 @@ public class UiManager : MonoBehaviour {
 
 	private void OnWaveStart() {
         waveMessage.DisplayMessage("Wave " + gameManager.Wave + " starts");
+        waveCounter.GetComponentInChildren<Text>().text = gameManager.Wave.ToString();
     }
 
 	private void OnWaveEnd() {
@@ -43,15 +44,15 @@ public class UiManager : MonoBehaviour {
     }
 
 	private void OnGameOver() {
+        tempScoreField.text = gameManager.Wave.ToString();
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
     }
 
 
     public void Retry() {
-        Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-        tempScoreField.text = gameManager.Wave.ToString();
+        Time.timeScale = 1;
     }
 
 	
