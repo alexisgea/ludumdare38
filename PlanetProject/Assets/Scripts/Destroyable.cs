@@ -6,14 +6,14 @@ public class Destroyable : MonoBehaviour {
 
 	public Transform _explosionPrefab;
     [SerializeField] float explosionForce = 1f;
-    [SerializeField] GameObject debrisPrefab;
-    [SerializeField] float debrisScaleRange = 0.5f;
+    //[SerializeField] GameObject debrisPrefab;
+    //[SerializeField] float debrisScaleRange = 0.5f;
 
 	public float lifePoints = 1f;
     //private float startLifePoints;
     //[SerializeField] float minLifePoint = 5;
     //[SerializeField] float maxLifePoint = 15;
-    [SerializeField] float scaleDevider = 8;
+    //[SerializeField] float scaleDevider = 8;
 	public LayerMask _dealDamagesToLayer;
 
     public float dealDamages = 1f;
@@ -22,6 +22,7 @@ public class Destroyable : MonoBehaviour {
     [SerializeField] bool autoDestroy = false;
     [SerializeField] float autoDestroyTimer = 2f;
 
+	public UnityEngine.Events.UnityEvent _onDamage;
     public UnityEngine.Events.UnityEvent _onDeath;
 
 	/// <summary>
@@ -62,6 +63,8 @@ public class Destroyable : MonoBehaviour {
 	public void Dammage (float amount)
 	{
 		lifePoints -= amount;
+
+		_onDamage.Invoke ();
 
 		if (lifePoints <= 0f) {
 			Die ();
