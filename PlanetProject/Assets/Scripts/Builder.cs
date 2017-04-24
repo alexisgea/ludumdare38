@@ -48,7 +48,11 @@ public class Builder : MonoBehaviour {
 
 		_preview.gameObject.SetActive (canBuild);
 
-		_preview.color = LayerMask.LayerToName (hit.collider.gameObject.layer) == "turret" ? Color.red : Color.white;
+		_preview.color =
+			(hit.collider != null && LayerMask.LayerToName (hit.collider.gameObject.layer) == "turret")
+			? Color.red
+			: Color.white
+		;
 
 		if (!canBuild) 
 			return;

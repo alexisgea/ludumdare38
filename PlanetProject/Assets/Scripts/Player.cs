@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	public Transform graphics;
+	public Animator animator;
 	public Transform planet;
 	public float speed = 10f;
 	public float acceleration = 10f;
@@ -28,7 +29,8 @@ public class Player : MonoBehaviour
 
 		var velocity = transform.InverseTransformDirection(rb.velocity);
 
-		var targetSpeed = Input.GetAxisRaw ("Horizontal") * speed;
+		var hotizontalInput = Input.GetAxisRaw ("Horizontal");
+		var targetSpeed = hotizontalInput * speed;
 
 		//var deltaSpeed = targetSpeed - velocity.x;
 
@@ -47,10 +49,14 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (Mathf.Abs (Input.GetAxisRaw ("Horizontal")) > 0.1f) {
+		if (Mathf.Abs (hotizontalInput) > 0.1f) {
 			var rot = graphics.localEulerAngles;
 			rot.y = targetSpeed < 0 ? 180f : 0f;
 			graphics.localEulerAngles = rot;
+			animator.Play ("Run");
+		}
+		else {
+			animator.Play ("Idle");
 		}
 	}
 
