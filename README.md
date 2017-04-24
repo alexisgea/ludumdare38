@@ -15,6 +15,14 @@ Basic block will destroy one incoming threat only but are far cheaper than turre
 
 Have fun!
 
+## Controls
+
+move: a,d or arrows
+jump: w or space
+shoot: j
+build turret: l
+build block: k
+
 ## links
 Ludumdare: https://ldjam.com/events/ludum-dare/38/tiny-defenders
 Game: 
