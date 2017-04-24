@@ -44,17 +44,13 @@ public class Builder : MonoBehaviour {
 
 		var hit = Physics2D.BoxCast (castOrigin, size, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower, _layerMask);
 
-		var canBuild = hit.collider != null && hit.distance != 0f;
+		var obstrued = hit.collider != null && hit.distance != 0f;
+		_preview.gameObject.SetActive (obstrued);
 
-		_preview.gameObject.SetActive (canBuild);
+		var onTopOfTurret = hit.collider != null && LayerMask.LayerToName (hit.collider.gameObject.layer) == "turret";
+		_preview.color = onTopOfTurret ? Color.red : Color.white;
 
-		_preview.color =
-			(hit.collider != null && LayerMask.LayerToName (hit.collider.gameObject.layer) == "turret")
-			? Color.red
-			: Color.white
-		;
-
-		if (!canBuild) 
+		if (obstrued || onTopOfTurret) 
 			return;
 
 		var targetPosition = castOrigin - upDir * hit.distance;
