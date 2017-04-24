@@ -17,7 +17,7 @@ public class SoundPlayer : MonoBehaviour
 		}
 	}
 
-	void Play ()
+	public void Play ()
 	{
 		var pitch = basePitch + (Random.Range (-pitchVariation, pitchVariation) + Random.Range (-pitchVariation, pitchVariation)) * 0.5f;
 		SoundManager.instance.Play (clip, transform.position, pitch, volume);
