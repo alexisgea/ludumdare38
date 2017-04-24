@@ -800,10 +800,6 @@ Prefab:
       propertyPath: m_Name
       value: UI - Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1325347863416022, guid: f69a03e1d34ea40668b2ce13907eefca, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f69a03e1d34ea40668b2ce13907eefca, type: 2}
   m_IsPrefabParent: 0

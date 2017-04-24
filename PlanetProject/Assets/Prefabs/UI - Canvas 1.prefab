@@ -155,7 +155,6 @@ GameObject:
   - component: {fileID: 222404262987804970}
   - component: {fileID: 114878607753833222}
   - component: {fileID: 225543057072418084}
-  - component: {fileID: 114431750710270768}
   - component: {fileID: 114448514534012756}
   m_Layer: 5
   m_Name: right
@@ -232,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1335799488067032
 GameObject:
   m_ObjectHideFlags: 1
@@ -403,7 +402,6 @@ GameObject:
   - component: {fileID: 222492324252359678}
   - component: {fileID: 114897325982799642}
   - component: {fileID: 225364556767961822}
-  - component: {fileID: 114650864059557642}
   - component: {fileID: 114662965297080702}
   m_Layer: 5
   m_Name: left
@@ -850,7 +848,6 @@ GameObject:
   - component: {fileID: 222695730445241456}
   - component: {fileID: 114428259585736986}
   - component: {fileID: 225465949619664016}
-  - component: {fileID: 114649775876517564}
   - component: {fileID: 114310087995591296}
   m_Layer: 5
   m_Name: Shoot
@@ -888,7 +885,6 @@ GameObject:
   - component: {fileID: 222800118858646844}
   - component: {fileID: 114635545323947750}
   - component: {fileID: 225227190538575462}
-  - component: {fileID: 114801286356302968}
   - component: {fileID: 114870966910129478}
   m_Layer: 5
   m_Name: jump
@@ -1876,21 +1872,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114431750710270768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1270794375226470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66e5e1de85824a5a96db79e287fb3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildablePrefab: {fileID: 114037442581940844, guid: d9316155a7c314883bef1d9a3d61509a,
-    type: 2}
-  _price: {fileID: 0}
-  _group: {fileID: 225543057072418084}
 --- !u!114 &114448514534012756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2231,36 +2212,6 @@ MonoBehaviour:
     type: 2}
   _price: {fileID: 114268469332504864}
   _group: {fileID: 225250636819828810}
---- !u!114 &114649775876517564
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1941495222106488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66e5e1de85824a5a96db79e287fb3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildablePrefab: {fileID: 114037442581940844, guid: d9316155a7c314883bef1d9a3d61509a,
-    type: 2}
-  _price: {fileID: 0}
-  _group: {fileID: 225465949619664016}
---- !u!114 &114650864059557642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1516132746855188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66e5e1de85824a5a96db79e287fb3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildablePrefab: {fileID: 114037442581940844, guid: d9316155a7c314883bef1d9a3d61509a,
-    type: 2}
-  _price: {fileID: 0}
-  _group: {fileID: 225364556767961822}
 --- !u!114 &114657265335526690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2417,21 +2368,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114801286356302968
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1974148447861970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66e5e1de85824a5a96db79e287fb3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildablePrefab: {fileID: 114037442581940844, guid: d9316155a7c314883bef1d9a3d61509a,
-    type: 2}
-  _price: {fileID: 0}
-  _group: {fileID: 225227190538575462}
 --- !u!114 &114845245131260760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2863,7 +2799,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Wave Messages Here
+  m_Text: 
 --- !u!114 &114947173013045988
 MonoBehaviour:
   m_ObjectHideFlags: 1
