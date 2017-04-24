@@ -13,6 +13,7 @@ public class UiManager : MonoBehaviour {
     [SerializeField] TextFade waveMessage;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] Text tempScoreField;
+    [SerializeField] GameObject SplashMenu;
 
 
 
@@ -59,5 +60,12 @@ public class UiManager : MonoBehaviour {
         Application.Quit();
     }
 
-	
+	public void PlayGame() {
+        SplashMenu.SetActive(false);
+        gameManager.StartGame = true;
+    }
+
+    public void ViewCredit() {
+
+    }
 }

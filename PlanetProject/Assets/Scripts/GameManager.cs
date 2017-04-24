@@ -25,7 +25,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField] SoundPlayer waveEnd;
     [SerializeField] SoundPlayer gameOver;
     
-
+    private bool startGame = false;
+    public bool StartGame {
+        set {
+            WaitForNetxtWave();
+            startGame = value;
+        }
+    }
 
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
@@ -62,27 +68,31 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Ressources = startRessources;
-        WaitForNetxtWave();
+        //WaitForNetxtWave();
 
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if(!isInWave) {
-            interWaveWaitCounter -= Time.deltaTime;
-			if(interWaveWaitCounter <= 0) {
-				isInWave = true;
-                StartNewWave();
+        if(startGame) {
+
+            if(!isInWave) {
+                interWaveWaitCounter -= Time.deltaTime;
+                if(interWaveWaitCounter <= 0) {
+                    isInWave = true;
+                    StartNewWave();
+                }
+            }
+            else {
+                SpawnAsteroid();
+                if(asteroidGroup.childCount == 0 && spawnedAsteroid == maxAsteroid) {
+                    isInWave = false;
+                    WaitForNetxtWave();
+                }
             }
         }
-		else {
-            SpawnAsteroid();
-            if(asteroidGroup.childCount == 0 && spawnedAsteroid == maxAsteroid) {
-				isInWave = false;
-                WaitForNetxtWave();
-            }
-		}
+
 		
 	}
 
