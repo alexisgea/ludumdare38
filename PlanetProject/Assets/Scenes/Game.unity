@@ -113,6 +113,54 @@ Camera:
   m_PrefabParentObject: {fileID: 20762565264776368, guid: 808d06c7c2ef745ea8e0696eacac64e6,
     type: 2}
   m_PrefabInternal: {fileID: 773997783}
+--- !u!114 &240587495 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114990593788807332, guid: 39f5ab84c88ef4f49abad3a776f3fb41,
+    type: 2}
+  m_PrefabInternal: {fileID: 975537927}
+  m_Script: {fileID: 11500000, guid: 2738e15b113a643ce86aae86fa42410d, type: 3}
+--- !u!1 &409814604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 409814606}
+  - component: {fileID: 409814605}
+  m_Layer: 0
+  m_Name: Intro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &409814605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 409814604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891543f5538314e5cbca768b0ccccab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _intro: {fileID: 608216903}
+  _cameraZoom: {fileID: 240587495}
+--- !u!4 &409814606
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 409814604}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &415119197
 Prefab:
   m_ObjectHideFlags: 0
@@ -152,6 +200,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114227563676210612, guid: 6d81d00d91df2462a9ef0b4d325d487c,
+        type: 2}
+      propertyPath: planet
+      value: 
+      objectReference: {fileID: 1106437079}
     - target: {fileID: 114356696345106636, guid: 6d81d00d91df2462a9ef0b4d325d487c,
         type: 2}
       propertyPath: _planet
@@ -162,11 +215,6 @@ Prefab:
       propertyPath: buildGroup
       value: 
       objectReference: {fileID: 1418297440}
-    - target: {fileID: 114227563676210612, guid: 6d81d00d91df2462a9ef0b4d325d487c,
-        type: 2}
-      propertyPath: planet
-      value: 
-      objectReference: {fileID: 1106437079}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d81d00d91df2462a9ef0b4d325d487c, type: 2}
   m_IsPrefabParent: 0
@@ -217,6 +265,28 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f3c29fecaa6a49ddb32dd6491f6f148, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &608216896 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1498286830180992, guid: 808d06c7c2ef745ea8e0696eacac64e6,
+    type: 2}
+  m_PrefabInternal: {fileID: 773997783}
+--- !u!95 &608216903
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 608216896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd0e9cee2ff8e49cda158ca9fa448dc6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &647561825
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +403,7 @@ Prefab:
     - target: {fileID: 20762565264776368, guid: 808d06c7c2ef745ea8e0696eacac64e6,
         type: 2}
       propertyPath: orthographic size
-      value: 18
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 808d06c7c2ef745ea8e0696eacac64e6, type: 2}
@@ -548,6 +618,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114963895777175302, guid: f69a03e1d34ea40668b2ce13907eefca,
+        type: 2}
+      propertyPath: intro
+      value: 
+      objectReference: {fileID: 409814605}
     - target: {fileID: 1680491727835718, guid: f69a03e1d34ea40668b2ce13907eefca, type: 2}
       propertyPath: m_Name
       value: UI - Canvas

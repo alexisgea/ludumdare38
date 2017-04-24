@@ -16,8 +16,7 @@ public class UiManager : MonoBehaviour {
     [SerializeField] GameObject SplashMenu;
     [SerializeField] GameObject CreditsScreen;
 
-
-
+	public Intro intro;
     // Use this for initialization
     void Start () {
         gameManager = FindObjectOfType<GameManager>();
@@ -64,7 +63,8 @@ public class UiManager : MonoBehaviour {
 	public void PlayGame() {
         SplashMenu.SetActive(false);
         CreditsScreen.SetActive(false);
-        gameManager.StartGame = true;
+		intro.Play ();
+        //gameManager.StartGame = true;
     }
 
     public void ViewCredit() {

@@ -76,4 +76,11 @@ public class Player : MonoBehaviour
 			GetComponentInChildren<Shooter>().Shoot ();
 		}
 	}
+
+	void OnCollisionEnter2D (Collision2D col)
+	{
+		if (transform.InverseTransformDirection (col.relativeVelocity).y > 0.5f) {
+			jumpPuffParticles.Play ();
+		}
+	}
 }

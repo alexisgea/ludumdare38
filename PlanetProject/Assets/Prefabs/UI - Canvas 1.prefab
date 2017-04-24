@@ -232,7 +232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1335799488067032
 GameObject:
   m_ObjectHideFlags: 1
@@ -772,7 +772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1920895624045918
 GameObject:
   m_ObjectHideFlags: 1
@@ -2903,6 +2903,7 @@ MonoBehaviour:
   tempScoreField: {fileID: 114144090417971838}
   SplashMenu: {fileID: 1705258721010532}
   CreditsScreen: {fileID: 1853326143610990}
+  intro: {fileID: 0}
 --- !u!114 &114972732592012042
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -23,7 +23,13 @@ public class CameraZoom : MonoBehaviour
 	{
 		var currentWave = _gameManager.Wave;
 		if (currentWave < _waves.Length)
-			StartCoroutine (EaseToParams (_waves[currentWave]));
+			EaseToWaveIndex (currentWave);
+	}
+
+	public void EaseToWaveIndex (int i)
+	{
+		StopAllCoroutines ();
+		StartCoroutine (EaseToParams (_waves[i]));
 	}
 
 	IEnumerator EaseToParams (WaveParams wavesParams)

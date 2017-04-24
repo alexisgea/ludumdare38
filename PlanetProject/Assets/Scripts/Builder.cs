@@ -44,13 +44,13 @@ public class Builder : MonoBehaviour {
 
 		var hit = Physics2D.BoxCast (castOrigin, size, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower, _layerMask);
 
-		var obstrued = hit.collider != null && hit.distance != 0f;
-		_preview.gameObject.SetActive (obstrued);
+		var spaceAvaliable = hit.collider != null && hit.distance != 0f;
+		_preview.gameObject.SetActive (spaceAvaliable);
 
 		var onTopOfTurret = hit.collider != null && LayerMask.LayerToName (hit.collider.gameObject.layer) == "turret";
 		_preview.color = onTopOfTurret ? Color.red : Color.white;
 
-		if (obstrued || onTopOfTurret) 
+		if (!spaceAvaliable) 
 			return;
 
 		var targetPosition = castOrigin - upDir * hit.distance;
@@ -58,6 +58,9 @@ public class Builder : MonoBehaviour {
 
 		_preview.transform.rotation = boxRotation;
 		_preview.transform.position = targetPosition;
+
+		if (onTopOfTurret)
+			return;
 
 		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources >= _cratePrefab.GetComponent<Buildable>().Cost)  {
 			Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);

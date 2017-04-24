@@ -179,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 1982527523226828}
   m_LocalRotation: {x: -0, y: -0, z: -0.095865935, w: 0.9953943}
   m_LocalPosition: {x: 3.3816981, y: 2.463239, z: -0.00000029564438}
-  m_LocalScale: {x: 2.43, y: 2.43, z: 1}
+  m_LocalScale: {x: 1.9139761, y: 1.9139761, z: 0.78764445}
   m_Children: []
   m_Father: {fileID: 4999638471417918}
   m_RootOrder: 2
@@ -380,8 +380,8 @@ MonoBehaviour:
   _turretPrefab: {fileID: 4940664718848936, guid: 06d4f3bcc3d7eba42a33d03ba4dedc37,
     type: 2}
   _preview: {fileID: 212090215411154040}
-  _horisontalDistance: 3
-  _buildHigher: 2
+  _horisontalDistance: 2.6
+  _buildHigher: 3
   _buildLower: 3
   _layerMask:
     serializedVersion: 2
@@ -453,7 +453,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1659670633
+  randomSeed: -1727948481
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3395,7 +3395,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 0e3c12429a892401f9eb1ba6145a0d50, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.903}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
