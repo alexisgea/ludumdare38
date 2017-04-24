@@ -8,7 +8,7 @@ public class Builder : MonoBehaviour {
 	public Transform _cratePrefab;
 	public Transform _turretPrefab;
 
-	public Transform _preview;
+	public SpriteRenderer _preview;
 
 	public float _horisontalDistance = -1.2f;
 	public float _buildHigher = 5f;
@@ -28,11 +28,8 @@ public class Builder : MonoBehaviour {
 
     void Update ()
 	{
-		
-
 		var spawnTarget = transform.position + transform.right * _horisontalDistance;
 		var upDir = (spawnTarget - _planet.position).normalized;
-
 
 		var castOrigin = spawnTarget + upDir * _buildHigher;
 		//_crate.position = transform.position;
@@ -45,22 +42,22 @@ public class Builder : MonoBehaviour {
 
 		var size = _cratePrefab.GetComponent<BoxCollider2D> ().size * _cratePrefab.localScale.x;
 
-//		var mask = LayerMask.GetMask (new string[] { "" })
 		var hit = Physics2D.BoxCast (castOrigin, size, boxRotation.eulerAngles.z, -upDir, _buildHigher + _buildLower, _layerMask);
 
+		var canBuild = hit.collider != null && hit.distance != 0f;
 
-		var canBuild = hit.collider != null;
 		_preview.gameObject.SetActive (canBuild);
 
-		if (!canBuild)
+		_preview.color = LayerMask.LayerToName (hit.collider.gameObject.layer) == "turret" ? Color.red : Color.white;
+
+		if (!canBuild) 
 			return;
-		
 
 		var targetPosition = castOrigin - upDir * hit.distance;
 		Debug.DrawLine (castOrigin, targetPosition, Color.magenta);
 
-		_preview.rotation = boxRotation;
-		_preview.position = targetPosition;
+		_preview.transform.rotation = boxRotation;
+		_preview.transform.position = targetPosition;
 
 		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources >= _cratePrefab.GetComponent<Buildable>().Cost)  {
 			Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
