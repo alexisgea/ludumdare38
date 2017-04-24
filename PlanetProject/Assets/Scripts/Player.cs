@@ -56,7 +56,11 @@ public class Player : MonoBehaviour
 
 	void Update ()
 	{
-		jumpInput = jumpInput || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.W);
+		float playerHeight = (Vector3.zero - transform.position).sqrMagnitude;
+		float allowedHeight =  Mathf.Clamp(Mathf.Pow(12.5f + FindObjectOfType<GameManager>().Wave * 1.2f, 2), 0f, Mathf.Pow(25,2));
+		
+		if(playerHeight < allowedHeight)
+			jumpInput = jumpInput || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.W);
 
 		if (Input.GetKeyDown (KeyCode.J)) {
 			GetComponentInChildren<Shooter>().Shoot ();
