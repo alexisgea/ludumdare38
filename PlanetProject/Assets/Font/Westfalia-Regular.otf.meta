@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 911e1c52b5fb98549923e995afe6ebbf
+timeCreated: 1493060787
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 48
+  forceTextureCase: 1
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Westfalia
+  fontNames:
+  - Westfalia
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
