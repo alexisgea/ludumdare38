@@ -15,7 +15,8 @@ public class BuildingUI : MonoBehaviour {
 
 	void Start ()
 	{
-		_price.text = _buildablePrefab.Cost.ToString ();
+		if(_price != null)
+			_price.text = _buildablePrefab.Cost.ToString ();
 		_gameManager = FindObjectOfType<GameManager> ();
 	}
 

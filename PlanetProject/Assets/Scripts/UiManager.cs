@@ -14,6 +14,7 @@ public class UiManager : MonoBehaviour {
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] Text tempScoreField;
     [SerializeField] GameObject SplashMenu;
+    [SerializeField] GameObject CreditsScreen;
 
 
 
@@ -62,10 +63,11 @@ public class UiManager : MonoBehaviour {
 
 	public void PlayGame() {
         SplashMenu.SetActive(false);
+        CreditsScreen.SetActive(false);
         gameManager.StartGame = true;
     }
 
     public void ViewCredit() {
-
+        SplashMenu.SetActive(false);
     }
 }
