@@ -37,7 +37,14 @@ public class UiManager : MonoBehaviour {
     }
 
 	private void OnWaveEnd() {
-		waveMessage.DisplayMessage("Wave finished \n next wave in " + gameManager.InterWaveWaiter + " sec");
+        if(gameManager.Wave ==1) {
+		    waveMessage.DisplayMessage("START \n first wave in " + gameManager.InterWaveWaiter + " sec");
+
+        }
+        else {
+		    waveMessage.DisplayMessage("Wave finished \n next wave in " + gameManager.InterWaveWaiter + " sec");
+
+        }
 	}
 
 	private void OnRessourcesChanged() {
