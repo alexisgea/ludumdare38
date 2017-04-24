@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] float asteroidsMaxLife;
 	[SerializeField] float asteroidsLifeExtraScale;
 
+    [SerializeField] SoundPlayer waveStart;
+    [SerializeField] SoundPlayer waveEnd;
+    [SerializeField] SoundPlayer gameOver;
+    
+
 
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
@@ -89,7 +94,7 @@ public class GameManager : MonoBehaviour {
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
 
         DestroyWaveWarnings();
-
+        waveStart.Play();
         RaiseWaveStart();
     }
 
@@ -100,7 +105,7 @@ public class GameManager : MonoBehaviour {
 
         PrepareNextWaveSources();
         UpdateWaveWarnings();
-
+        waveEnd.Play();
         RaiseWaveEnd();
 		
 
@@ -152,6 +157,7 @@ public class GameManager : MonoBehaviour {
 		if(GameOver != null) {
             GameOver.Invoke();
         }
+        gameOver.Play();
     }
 
     private void PrepareNextWaveSources() {
