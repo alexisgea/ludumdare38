@@ -1,4 +1,4 @@
-## ludumdare38
+# ludumdare38
 
 Our game entry for the ludumdare38 gamejam.
 Made with passion in unity 5.6, 48h and lots of café.
@@ -7,7 +7,7 @@ Made with passion in unity 5.6, 48h and lots of café.
 - Alexis Giard (programming)
 
 
-#Tiny Defender
+## Tiny Defender
 
 Defend your tiny world against the incoming asteroid storm as long as you can.
 
@@ -15,6 +15,6 @@ Basic block will destroy one incoming threat only but are far cheaper than turre
 
 Have fun!
 
-#links
+## links
 Ludumdare: https://ldjam.com/events/ludum-dare/38/tiny-defenders
 Game: 
