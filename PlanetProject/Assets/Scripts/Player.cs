@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
 	public float speed = 10f;
 	public float acceleration = 10f;
 	public float jumpForce = 100f;
+
+	public ParticleSystem jumpPuffParticles;
+
 	bool jumpInput;
 
 
@@ -45,6 +48,7 @@ public class Player : MonoBehaviour
 
 		if (jumpInput) {
 			jumpInput = false;
+			jumpPuffParticles.Play ();
 			rb.AddRelativeForce (new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 		}
 
