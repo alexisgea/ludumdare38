@@ -112,11 +112,16 @@ public class GameManager : MonoBehaviour {
 
 			// Instantiate
 			var asteroid = Instantiate(asteroidPrefab, GetRandomSpawnLocation(), Quaternion.Euler(0,0,Random.Range(0,360)), asteroidGroup);
-
 			// Health and damages
 			var asteroidDestroyable = asteroid.GetComponent<Destroyable> ();
-			asteroidDestroyable.lifePoints = Random.Range(asteroidsMinLife, asteroidsMaxLife + Wave);
+			asteroidDestroyable.lifePoints = Random.Range(asteroidsMinLife, asteroidsMaxLife + Wave * 3);
 			asteroidDestroyable.dealDamages = Mathf.Max (1f, asteroidDestroyable.lifePoints / 10);
+            float scaleFactor = asteroidDestroyable.lifePoints / (asteroidsMaxLife+5);
+            asteroid.transform.localScale = Vector3.one * scaleFactor;
+            int debrisCount = (int)(asteroid.GetComponent<DebrisSpawner>().count * Mathf.Min(scaleFactor,1)); 
+            asteroid.GetComponent<DebrisSpawner>().count = debrisCount; 
+
+            
 
 			// Scale
 			var baseScale = transform.localScale.x;

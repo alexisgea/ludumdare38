@@ -15,7 +15,7 @@ public class DebrisSpawner : MonoBehaviour {
 			GameObject debris = Instantiate(debrisPrefab, transform.position, Quaternion.Euler(0,0,Random.Range(0,360)),
 				GameObject.Find("DebrisGroup").transform);
 			debris.GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle * explosionForce;
-			float scaleFactor = Random.Range(1 - scaleRange, 1 + scaleRange);
+			float scaleFactor = Random.Range(1.5f - scaleRange, 1.5f + scaleRange);
 			debris.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
 		}
 	}
