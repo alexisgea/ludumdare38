@@ -26,7 +26,7 @@ public class DamageColorAnim : MonoBehaviour {
 		GetComponent<Destroyable>()._onDamage.AddListener (OnDamage);
 	}
 
-	void OnDamage ()
+	public void OnDamage ()
 	{
 		StopAllCoroutines ();
 		StartCoroutine (Animate());

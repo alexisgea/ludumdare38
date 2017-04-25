@@ -76,5 +76,6 @@ public class UiManager : MonoBehaviour {
 
     public void ViewCredit() {
         SplashMenu.SetActive(false);
+		CreditsScreen.SetActive(true);
     }
 }

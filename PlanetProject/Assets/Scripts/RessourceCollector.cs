@@ -25,6 +25,7 @@ public class RessourceCollector : MonoBehaviour {
 		if(other.gameObject.layer == LayerMask.NameToLayer("debris")) {
             gameManager.Ressources += other.gameObject.GetComponent<Debris>().RessourceValue;
             Destroy(other.gameObject);
+			GetComponent<SoundPlayer>().Play ();
         }
 	}
 }

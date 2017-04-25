@@ -15,15 +15,20 @@ public class Player : MonoBehaviour
 
 	bool jumpInput;
 
+	GameManager gm;
 
 	void Start ()
 	{
 		var rb = GetComponent<Rigidbody2D>();
 		rb.centerOfMass = new Vector2(0f, 0f);
+		gm = FindObjectOfType<GameManager> ();
 	}
 
 	void FixedUpdate ()
 	{
+		if (!gm.StartGame)
+			return;
+
 		var rb = GetComponent<Rigidbody2D>();
 
 		var delta = transform.position - planet.position;

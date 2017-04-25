@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour {
             WaitForNetxtWave();
             startGame = value;
         }
+		get {
+			return startGame;
+		}
     }
 
     private int maxAsteroid = 0;
@@ -76,7 +79,6 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
         if(startGame) {
-
             if(!isInWave) {
                 interWaveWaitCounter -= Time.deltaTime;
                 if(interWaveWaitCounter <= 0) {

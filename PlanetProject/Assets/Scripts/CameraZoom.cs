@@ -7,6 +7,7 @@ public class CameraZoom : MonoBehaviour
 	public Camera _camera;
 	public SpriteGroup _clouds;
 	public SpriteRenderer _sky;
+	public SpriteGroup _stars;
 
 	public GameManager _gameManager;
 
@@ -46,6 +47,9 @@ public class CameraZoom : MonoBehaviour
 		var startSkyColor = _sky.color;
 		var targetSkyColor = wavesParams.skyColor;
 
+		var startStarsColor = _stars.color;
+		var targetStarsColor = wavesParams.starsColor;
+
 		while (true) {
 			var normalizedTime = Mathf.Clamp01 ((Time.time - startTime) / _easingDuration);
 			if (normalizedTime >= 1f) {
@@ -60,6 +64,9 @@ public class CameraZoom : MonoBehaviour
 
 			// Sky color
 			_sky.color = ColorSmoothStep (startSkyColor, targetSkyColor, normalizedTime);
+
+			// Stars color
+			_stars.color = ColorSmoothStep (startStarsColor, targetStarsColor, normalizedTime);
 
 			yield return null;
 		}
@@ -82,4 +89,5 @@ public class WaveParams
 	public float cameraSize;
 	public Color skyColor;
 	public Color cloudsColor;
+	public Color starsColor = Color.white;
 }
