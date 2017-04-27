@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 		float allowedHeight =  Mathf.Clamp(Mathf.Pow(12.5f + FindObjectOfType<GameManager>().Wave * 1.2f, 2), 0f, Mathf.Pow(25,2));
 		
 		if(playerHeight < allowedHeight)
-			jumpInput = jumpInput || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.W);
+			jumpInput = jumpInput || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown (KeyCode.Z);
 
 		if (Input.GetKeyDown (KeyCode.J)) {
 			GetComponentInChildren<Shooter>().Shoot ();
