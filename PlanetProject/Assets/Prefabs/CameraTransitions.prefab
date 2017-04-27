@@ -54,42 +54,55 @@ MonoBehaviour:
   _camera: {fileID: 0}
   _clouds: {fileID: 0}
   _sky: {fileID: 0}
+  _stars: {fileID: 0}
   _gameManager: {fileID: 0}
-  _easingDuration: 14
+  _easingDuration: 10
   _waves:
-  - cameraSize: 18
+  - cameraSize: 21
     skyColor: {r: 1, g: 1, b: 1, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 1}
-  - cameraSize: 20
-    skyColor: {r: 1, g: 1, b: 1, a: 1}
-    cloudsColor: {r: 1, g: 1, b: 1, a: 1}
+    starsColor: {r: 1, g: 1, b: 1, a: 0}
   - cameraSize: 22
+    skyColor: {r: 1, g: 1, b: 1, a: 1}
+    cloudsColor: {r: 1, g: 1, b: 1, a: 1}
+    starsColor: {r: 1, g: 1, b: 1, a: 0}
+  - cameraSize: 24
     skyColor: {r: 0.78676474, g: 0.87647057, b: 1, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0.753}
-  - cameraSize: 24
+    starsColor: {r: 1, g: 1, b: 1, a: 0}
+  - cameraSize: 26
     skyColor: {r: 0.4155493, g: 0.63316405, b: 0.9264706, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0.559}
-  - cameraSize: 26
+    starsColor: {r: 1, g: 1, b: 1, a: 0}
+  - cameraSize: 28
     skyColor: {r: 0.49805364, g: 0.52335936, b: 0.6911765, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
-  - cameraSize: 28
-    skyColor: {r: 0.40268165, g: 0.5232669, b: 0.7205882, a: 1}
+    starsColor: {r: 1, g: 1, b: 1, a: 0}
+  - cameraSize: 29
+    skyColor: {r: 0.5441177, g: 0.5441177, b: 0.5441177, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 0.072}
   - cameraSize: 30
     skyColor: {r: 0.49788702, g: 0.48269895, b: 0.9117647, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 0.153}
   - cameraSize: 32
     skyColor: {r: 0.35196432, g: 0.33591044, b: 0.8014706, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 1}
   - cameraSize: 34
     skyColor: {r: 0.25175256, g: 0.23632134, b: 0.6838235, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 0.297}
   - cameraSize: 36
     skyColor: {r: 0.10374665, g: 0.08801903, b: 0.5441177, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 0.703}
   - cameraSize: 38
     skyColor: {r: 0.049895912, g: 0.044117644, b: 0.375, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 1}
   - cameraSize: 40
     skyColor: {r: 0.048632897, g: 0.042441178, b: 0.222, a: 1}
     cloudsColor: {r: 1, g: 1, b: 1, a: 0}
+    starsColor: {r: 1, g: 1, b: 1, a: 1}

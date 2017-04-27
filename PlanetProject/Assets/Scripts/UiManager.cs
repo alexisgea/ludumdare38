@@ -38,7 +38,7 @@ public class UiManager : MonoBehaviour {
 
 	private void OnWaveEnd() {
         if(gameManager.Wave == 0) {
-		    waveMessage.DisplayMessage("START \n first wave in " + gameManager.InterWaveWaiter + " sec");
+		    waveMessage.DisplayMessage("Get Ready!\n first wave in " + gameManager.InterWaveWaiter + " sec");
 
         }
         else {

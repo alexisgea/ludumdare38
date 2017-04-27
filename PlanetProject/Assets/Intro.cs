@@ -42,7 +42,7 @@ public class Intro : MonoBehaviour {
 		yield return new WaitForSeconds (delayZoom);
 
 		_intro.SetBool ("zoom", true);
-		_cameraZoom.EaseToWaveIndex (0);
+		//_cameraZoom.EaseToWaveIndex (0);
 
 		yield return new WaitForSeconds (delayStart);
 
