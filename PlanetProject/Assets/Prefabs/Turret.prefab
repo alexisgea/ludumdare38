@@ -399,6 +399,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Cost: 10
+  MaxCount: 10
+  OnDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!212 &212350429927094120
 SpriteRenderer:
   m_ObjectHideFlags: 1

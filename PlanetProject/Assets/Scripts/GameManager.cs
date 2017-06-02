@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 	
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField] SoundPlayer waveEnd;
     [SerializeField] SoundPlayer gameOver;
     
+	Dictionary<BuildableType, int> buildingsCounts;
+
     private bool startGame = false;
     public bool StartGame {
         set {
@@ -73,6 +76,12 @@ public class GameManager : MonoBehaviour {
         Ressources = startRessources;
         //WaitForNetxtWave();
 
+		// Initialize building counts
+		buildingsCounts = new Dictionary<BuildableType, int> ();
+		var types = EnumUtil.GetValues<BuildableType> ();
+		foreach (var type in types) {
+			buildingsCounts.Add (type, 0);
+		}
     }
 	
 	// Update is called once per frame
@@ -153,6 +162,31 @@ public class GameManager : MonoBehaviour {
 			
 	}
 
+	public bool CanBuild (Buildable prefab)
+	{
+		return prefab.Cost <= this.Ressources
+			&& !BuildingMaxCountReached (prefab);
+	}
+
+	public bool BuildingMaxCountReached (Buildable prefab)
+	{
+		return prefab.MaxCount != 0 && buildingsCounts[prefab.Type] >= prefab.MaxCount;
+	}
+
+	public void Build (Buildable instance)
+	{
+		// Consume the resources
+		this.Ressources -= instance.Cost;
+
+		// Increment the building count for this type
+		buildingsCounts[instance.Type]++;
+
+		// Subscribe to event in order to decrement the building count when this building is destroyed 
+		instance.OnDestroyed.AddListener (() => {
+			buildingsCounts[instance.Type]--;
+		});
+	}
+		
 	private Vector2 GetRandomSpawnLocation() {
 		Vector2 spawnDir = Quaternion.Euler(0, 0, Random.Range(-spawAngleSpread, spawAngleSpread)) * asteroidSources[Random.Range(0, asteroidSources.Length)];
         return spawnDir * Random.Range(minSpawnDistance, maxSpawnDistance);
@@ -206,4 +240,11 @@ public class GameManager : MonoBehaviour {
     }
 
 
+}
+	
+
+public static class EnumUtil {
+	public static IEnumerable<T> GetValues<T>() {
+		return System.Enum.GetValues(typeof(T)).Cast<T>();
+	}
 }

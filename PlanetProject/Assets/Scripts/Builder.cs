@@ -62,14 +62,32 @@ public class Builder : MonoBehaviour {
 		if (onTopOfTurret)
 			return;
 
-		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources >= _cratePrefab.GetComponent<Buildable>().Cost)  {
-			Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
-            gameManager.Ressources -= _cratePrefab.GetComponent<Buildable>().Cost;
-        }
+		if (Input.GetKeyDown (KeyCode.K)) {
+			Build (_cratePrefab, targetPosition, boxRotation);
+		}
 
-		if (Input.GetKeyDown (KeyCode.L) && gameManager.Ressources >= _turretPrefab.GetComponent<Buildable>().Cost) {
-			Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
-            gameManager.Ressources -= _turretPrefab.GetComponent<Buildable>().Cost;
+		if (Input.GetKeyDown (KeyCode.L)) {
+			Build (_turretPrefab, targetPosition, boxRotation);
+		}
+
+//		if (Input.GetKeyDown (KeyCode.K) && gameManager.Ressources >= _cratePrefab.GetComponent<Buildable>().Cost)  {
+//			Instantiate<Transform>(_cratePrefab, targetPosition, boxRotation, buildGroup);
+//            gameManager.Ressources -= _cratePrefab.GetComponent<Buildable>().Cost;
+//        }
+//
+//		if (Input.GetKeyDown (KeyCode.L) && gameManager.Ressources >= _turretPrefab.GetComponent<Buildable>().Cost) {
+//			Instantiate<Transform>(_turretPrefab, targetPosition, boxRotation, buildGroup);
+//            gameManager.Ressources -= _turretPrefab.GetComponent<Buildable>().Cost;
+//		}
+	}
+
+	void Build (Transform prefab, Vector3 position, Quaternion rotation)
+	{
+		var buildable = prefab.GetComponent<Buildable> ();
+		var canBuild = gameManager.CanBuild (buildable);
+		if (canBuild) {
+			var newBuilding = Instantiate<Transform>(prefab, position, rotation, buildGroup);
+			gameManager.Build (newBuilding.GetComponent<Buildable>());
 		}
 	}
 
