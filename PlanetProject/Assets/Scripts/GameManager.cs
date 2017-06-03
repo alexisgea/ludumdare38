@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public class AsteroidEvent : UnityEngine.Events.UnityEvent<Transform>
+{
+	
+}
+
 public class GameManager : MonoBehaviour {
 	
     [SerializeField] float interWaveWaiter = 2f;
@@ -67,9 +72,7 @@ public class GameManager : MonoBehaviour {
     public event System.Action GameOver;
     public event System.Action RessourcesChanged;
 
-
-
-
+	public AsteroidEvent AsteroidSpawned = new AsteroidEvent();
 
     // Use this for initialization
     void Start () {
@@ -158,8 +161,11 @@ public class GameManager : MonoBehaviour {
 			var baseScale = transform.localScale.x;
 			float scaleBonus = asteroidDestroyable.lifePoints * asteroidsLifeExtraScale;
 			transform.localScale = new Vector3(baseScale + scaleBonus, baseScale + scaleBonus, 1f);
+
+			// Event
+			AsteroidSpawned.Invoke (asteroid.transform);
         }
-			
+
 	}
 
 	public bool CanBuild (Buildable prefab)
