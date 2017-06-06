@@ -3,6 +3,7 @@
     // error_reporting(E_ALL);
     // ini_set('display_errors', 1);
 
+    // I need to have the config in a specific file
     // Configuration
     $hostname = 'localhost';
     $username = 'root';
@@ -33,7 +34,7 @@
         try {
             //$stmt->execute($_GET);
             $stmt->execute();
-        } catch(Exception $e) {
+        } catch(Exception $e) { // PDOException?
             echo 'Error: ' . $e->getMessage();
             exit();
         }

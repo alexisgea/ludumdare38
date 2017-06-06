@@ -9,7 +9,7 @@ public class ServerTest : MonoBehaviour {
 	private string addScoreURL = "http://localhost/AddScore.php";
 	private string updateNameURL = "http://localhost/UpdateName.php";
 	private string topScoresURL = "http://localhost/TopScores.php";
-	private string neighbourScoresURL = "http://localhost/NeighbourScores.php";
+	private string neighbourScoresURL = "http://localhost/NeighbourScores.php?";
 	private string rankURL = "http://localhost/GetRank.php?";
 	private int highscore;
 	private string username;
@@ -17,7 +17,7 @@ public class ServerTest : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(AddScore("laura", 666));
+        StartCoroutine(AddScore("josé", 500));
     }
 	
 	// Update is called once per frame
@@ -42,11 +42,30 @@ public class ServerTest : MonoBehaviour {
 		{
 			string id = postScoreAttempt.text;
             Debug.Log("Post score success with id: " + id);
-            StartCoroutine(GetRank(id));
+            StartCoroutine(GetNeighbourScores(id));
+            //StartCoroutine(GetRank(id));
         }
 		else
 		{
             Debug.Log("Post score failure " + postScoreAttempt.error);			
+			//Error();
+		}
+	}
+
+	IEnumerator GetNeighbourScores(string id) {
+	
+		WWW getNeighbourScoresAttempt = new WWW(neighbourScoresURL + "id=" + id);
+	
+		yield return getNeighbourScoresAttempt;
+	
+		if (getNeighbourScoresAttempt.error == null)
+		{
+            Debug.Log("Get neighbour scores success:\n" + getNeighbourScoresAttempt.text);
+            
+        }
+		else
+		{
+			Debug.Log("Get neighbour scores failure " + getNeighbourScoresAttempt.error);	
 			//Error();
 		}
 	}
@@ -79,7 +98,7 @@ public class ServerTest : MonoBehaviour {
 		if (getTopScoresAttempt.error == null)
 		{
 			string scores = getTopScoresAttempt.text;
-            Debug.Log("Top scores: " + scores);
+            Debug.Log("Top scores:\n" + scores);
         }
 		else
 		{

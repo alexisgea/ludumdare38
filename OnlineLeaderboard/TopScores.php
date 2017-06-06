@@ -13,7 +13,9 @@
         echo 'Error: ' . $e->getMessage();
         exit();
     }
- 
+    
+    // TODO 
+    // add line number as rank (+1) to have the same receiving funcitno for building the UI
     $stmt = $pdo->query('SELECT * FROM scores ORDER BY score DESC LIMIT 10');
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
  
@@ -21,7 +23,7 @@
  
     if(count($result) > 0) {
         foreach($result as $r) {
-            echo $r['name'], "\t", $r['score'], "\n";
+            echo $r['id'], "\t", $r['name'], "\t", $r['score'], "\n";
         }
     }
     
