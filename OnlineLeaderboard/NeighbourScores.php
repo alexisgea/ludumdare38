@@ -1,14 +1,8 @@
 <?php
-    
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
 
-    // Configuration
-    $hostname = 'localhost';
-    $username = 'root';
-    $password = 'root';
-    $database = 'tdtest';
+    include 'dbConfig.php'; // db connection variables
 
+    // connect to db
     try {
         $pdo = new PDO('mysql:host='. $hostname .';dbname='. $database, $username, $password);        
     }
@@ -17,22 +11,10 @@
         exit();
     }
 
-
-    // FIRST IDEA
-    // order by score
-    // lookup id value
-    // take 5 raw up
-    // take 5 raw down
-
-    // SECOND IDEA
-    // compute rank
-    // order by rank
-    // look up id
-    // select within rank range
-
+    // get values from request link
     $id = (int)$_GET['id'];
 
-    // get player rank
+    // get player rank query
     $sql1 = "SELECT  uo.*,
         (
         SELECT  COUNT(*)
@@ -42,20 +24,12 @@
     FROM    Scores uo
     WHERE   id = '$id';";
 
-    // potential replacement query
-    /*
-    $sql1 = "SET @rownum := 0";
-    $sql2 = "SELECT rank, name, score, id FROM (
-            SELECT @rownum := @rownum + 1 AS rank, name, score, id
-            FROM Scores ORDER BY score ASC
-            ) as result WHERE id=$id";
-            // DESC
-    */
-    
+    // execute player rank query    
     $stmt1 = $pdo->query($sql1); // should this be prepare???
     $stmt1->setFetchMode(PDO::FETCH_ASSOC);
     $result1 = $stmt1->fetchAll();
 
+    // store player rank in a variable
     $playerRank = 0;
     if(count($result1) == 1) {
         foreach($result1 as $r) {
@@ -66,15 +40,15 @@
         Die("Something went wrong");
     }
 
-    // get array of values needed
+    // get surrounding scores queries
     $sql2 = "SET @rownum := 0";
     $sql3 = "SELECT rank, name, score, id FROM (
             SELECT @rownum := @rownum + 1 AS rank, name, score, id
             FROM Scores ORDER BY score DESC
             ) as result WHERE rank > $playerRank-5
             limit 10;";
-            // DESC
 
+    // execute queries
     $stmt2 = $pdo->query($sql2);
     $stmt2->execute();
 
@@ -82,6 +56,7 @@
     $stmt3->setFetchMode(PDO::FETCH_ASSOC);
     $result2 = $stmt3->fetchAll();
 
+    // echo the result line by line
     if(count($result2) > 0) {
         foreach($result2 as $r) {
             echo $r['id'], "\t", $r['rank'], "\t", $r['name'], "\t", $r['score'], "\n";

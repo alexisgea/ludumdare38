@@ -1,17 +1,7 @@
 <?php
-    
-    // error_reporting(E_ALL);
-    // ini_set('display_errors', 1);
+    include 'dbConfig.php'; // db connection variables
 
-    // I need to have the config in a specific file
-    // Configuration
-    $hostname = 'localhost';
-    $username = 'root';
-    $password = 'root';
-    $database = 'tdtest';
-
-    $secretKey = "SuperSecretKey";
-
+    // connect to db
     try {
         $pdo = new PDO('mysql:host='. $hostname .';dbname='. $database, $username, $password);        
     }
@@ -20,31 +10,30 @@
         exit();
     }
 
+    // get values from request link
     $name = $_POST['name'];
     $score = $_POST['score'];
+    $hash = $_POST['hash'];
     $ts = CURRENT_TIMESTAMP;
 
-    $hash = $_POST['hash'];
+    // compute hash to compare with given one
     $realHash = md5($name . $score . $secretKey); 
-    //$realHash = md5($_GET['name'] . $_GET['score'] . $secretKey); 
+
     if($realHash == $hash) {
-        //$stmt = $pdo->prepare('INSERT INTO scores VALUES (null, :name, :score, CURRENT_TIMESTAMP)');
-        $sql = "INSERT INTO Scores SET name = '$name', score = '$score', ts = CURRENT_TIMESTAMP;"; // ts = CURRENT_TIMESTAMP
+        // prepare query for execution
+        $sql = "INSERT INTO Scores SET name = '$name', score = '$score', ts = CURRENT_TIMESTAMP;";
         $stmt = $pdo->prepare($sql);
+        // if good return player id
         try {
-            //$stmt->execute($_GET);
             $stmt->execute();
-        } catch(Exception $e) { // PDOException?
+            $id = $pdo->lastInsertId();
+            echo $id;
+        } // if error return it
+        catch(Exception $e) { // PDOException?
             echo 'Error: ' . $e->getMessage();
-            exit();
         }
     }
 
-    $id = $pdo->lastInsertId();
-    echo $id;
-
     // Close connection
     $pdo = null;
-
-    // echo 'all good to end of AddScore.php script'
 ?>

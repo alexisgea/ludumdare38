@@ -6,11 +6,11 @@ public class ServerTest : MonoBehaviour {
 
 	private string secretKey = "SuperSecretKey";
 	//private string addScoreURL = "http://localhost/AddScoreTest.php?";
-	private string addScoreURL = "http://localhost/AddScore.php";
-	private string updateNameURL = "http://localhost/UpdateName.php";
-	private string topScoresURL = "http://localhost/TopScores.php";
-	private string neighbourScoresURL = "http://localhost/NeighbourScores.php?";
-	private string rankURL = "http://localhost/GetRank.php?";
+	private string addScoreURL = "http://asteroidlab.com/games/tinydefender/AddScore.php";
+	private string updateNameURL = "http://asteroidlab.com/games/tinydefender/UpdateName.php";
+	private string topScoresURL = "http://asteroidlab.com/games/tinydefender/TopScores.php";
+	private string neighbourScoresURL = "http://asteroidlab.com/games/tinydefender/NeighbourScores.php?";
+	private string rankURL = "http://asteroidlab.com/games/tinydefender/GetRank.php?";
 	private int highscore;
 	private string username;
 	private int rank;

@@ -1,15 +1,7 @@
 <?php
-    // error_reporting(E_ALL);
-    // ini_set('display_errors', 1);
+    include 'dbConfig.php'; // db connection variables
 
-    // Configuration
-    $hostname = 'localhost';
-    $username = 'root';
-    $password = 'root';
-    $database = 'tdtest';
-
-    $secretKey = "SuperSecretKey";
-
+    // connect to db
     try {
         $pdo = new PDO('mysql:host='. $hostname .';dbname='. $database, $username, $password);        
     }
@@ -18,21 +10,26 @@
         exit();
     }
 
+    // get values from request link
     $id = (int)$_POST['id'];
     $name = $_POST['name'];
-
     $hash = $_POST['hash'];
+    
+    // compute hash to compare with given one
     $realHash = md5($id . $name . $secretKey); 
 
     if($realHash == $hash) {
+        // prepare query for execution
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "UPDATE Scores SET name ='$name' WHERE id=$id";
         $stmt = $pdo->prepare($sql);
 
+        // if good send a all good message        
         try {
             $stmt->execute();
             echo $stmt->rowCount() . " records UPDATED successfully";
-        } catch(Exception $e) { //PDOException?
+        } // if error return it
+        catch(Exception $e) { //PDOException?
             echo 'Error: ' . $e->getMessage();
             exit();
         }
