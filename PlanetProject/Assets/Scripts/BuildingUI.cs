@@ -9,6 +9,7 @@ public class BuildingUI : MonoBehaviour {
 
 	public Text _price;
 	public Text _avaliable;
+	public RectTransform _maxCountReached;
 	public CanvasGroup _group;
 
 	private GameManager _gameManager;
@@ -33,5 +34,8 @@ public class BuildingUI : MonoBehaviour {
 			lastAvaliable = avaliableCount;
 			_avaliable.text = avaliableCount.ToString () + "x";
 		}
+
+		var max = _gameManager.BuildingMaxCountReached (_buildablePrefab);
+		_maxCountReached.gameObject.SetActive (max);
 	}
 }
