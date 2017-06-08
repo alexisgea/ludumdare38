@@ -8721,6 +8721,12 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1045102640}
+--- !u!114 &1045756004 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114559545240052606, guid: cbf4eb489fd9847499aad076ebcaf1c2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1661649337}
+  m_Script: {fileID: 11500000, guid: 53294fb4ae06941dc8faa53cf72edfa2, type: 3}
 --- !u!1 &1061030380
 GameObject:
   m_ObjectHideFlags: 0
@@ -9032,6 +9038,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 228c2039a3117445aa9bc429dc2e1ab6, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1099356386 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114617732754043802, guid: cbf4eb489fd9847499aad076ebcaf1c2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1661649337}
+  m_Script: {fileID: 11500000, guid: 53294fb4ae06941dc8faa53cf72edfa2, type: 3}
 --- !u!1 &1103793151
 GameObject:
   m_ObjectHideFlags: 0
@@ -9047,7 +9059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1103793152
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12143,6 +12155,21 @@ Prefab:
       propertyPath: waveWarningGroup
       value: 
       objectReference: {fileID: 2069550293}
+    - target: {fileID: 114176487965135386, guid: cbf4eb489fd9847499aad076ebcaf1c2,
+        type: 2}
+      propertyPath: waveStartSound
+      value: 
+      objectReference: {fileID: 1724288997}
+    - target: {fileID: 114176487965135386, guid: cbf4eb489fd9847499aad076ebcaf1c2,
+        type: 2}
+      propertyPath: waveEndSound
+      value: 
+      objectReference: {fileID: 1099356386}
+    - target: {fileID: 114176487965135386, guid: cbf4eb489fd9847499aad076ebcaf1c2,
+        type: 2}
+      propertyPath: gameOverSound
+      value: 
+      objectReference: {fileID: 1045756004}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cbf4eb489fd9847499aad076ebcaf1c2, type: 2}
   m_IsPrefabParent: 0
@@ -12613,6 +12640,12 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!114 &1724288997 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114549369149365472, guid: cbf4eb489fd9847499aad076ebcaf1c2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1661649337}
+  m_Script: {fileID: 11500000, guid: 53294fb4ae06941dc8faa53cf72edfa2, type: 3}
 --- !u!1 &1731568997
 GameObject:
   m_ObjectHideFlags: 0

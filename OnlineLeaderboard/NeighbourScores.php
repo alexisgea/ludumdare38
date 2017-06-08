@@ -46,12 +46,22 @@
             Die("Something went wrong");
         }
 
+        $nRows = $pdo->query('select count(*) from Scores')->fetchColumn(); 
+        $offset = 5;
+
+        if($playerRank < 5) {
+            $offset = $playerRank;
+        }
+        else if($playerRank > $nRows-5) {
+            $offset = 10;
+        }
+
         // get surrounding scores queries
         $sql2 = "SET @rownum := 0";
         $sql3 = "SELECT rank, name, score, id FROM (
                 SELECT @rownum := @rownum + 1 AS rank, name, score, id
                 FROM Scores ORDER BY score DESC
-                ) as result WHERE rank > $playerRank-5
+                ) as result WHERE rank > $playerRank-$offset
                 limit 10;";
 
         // execute queries
