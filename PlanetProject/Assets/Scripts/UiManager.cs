@@ -12,7 +12,8 @@ public class UiManager : MonoBehaviour {
     [SerializeField] GameObject turretItem;
     [SerializeField] TextFade waveMessage;
     [SerializeField] GameObject gameOverPanel;
-    [SerializeField] Text tempScoreField;
+    [SerializeField] Text waveReachedField;
+    [SerializeField] Text timeSurviveField;
     [SerializeField] GameObject SplashMenu;
     [SerializeField] GameObject CreditsScreen;
 
@@ -53,7 +54,8 @@ public class UiManager : MonoBehaviour {
     }
 
 	private void OnGameOver() {
-        tempScoreField.text = "You reached wave " + gameManager.Wave.ToString();
+        waveReachedField.text = "You reached wave " + gameManager.Wave.ToString();
+        timeSurviveField.text = "and survived for " + gameManager.TimeSurvived.ToString();
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
     }

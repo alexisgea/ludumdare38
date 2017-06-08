@@ -27,9 +27,9 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] float asteroidsMaxLife;
 	[SerializeField] float asteroidsLifeExtraScale;
 
-    [SerializeField] SoundPlayer waveStart;
-    [SerializeField] SoundPlayer waveEnd;
-    [SerializeField] SoundPlayer gameOver;
+    [SerializeField] SoundPlayer waveStartSound;
+    [SerializeField] SoundPlayer waveEndSound;
+    [SerializeField] SoundPlayer gameOverSound;
     
 	Dictionary<BuildableType, int> buildingsCounts;
 
@@ -44,10 +44,15 @@ public class GameManager : MonoBehaviour {
 		}
     }
 
+    private bool gameOver = false;
+
     private int maxAsteroid = 0;
 	private int spawnedAsteroid = 0;
     private int waveCounter = 0;
 	public int Wave {get { return waveCounter; } }
+
+    private float surviveTimeCounter = 0;
+    public float TimeSurvived {get { return surviveTimeCounter; } }
     private float spawnRate;
 
     private bool isInWave = false;
@@ -90,7 +95,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(startGame) {
+        if(startGame && !gameOver) {
+
+            surviveTimeCounter += Time.deltaTime;
+
             if(!isInWave) {
                 interWaveWaitCounter -= Time.deltaTime;
                 if(interWaveWaitCounter <= 0) {
@@ -123,7 +131,7 @@ public class GameManager : MonoBehaviour {
         spawnRate = maxAsteroid / (spawnRateDivider * 60f);
 
         DestroyWaveWarnings();
-        waveStart.Play();
+        waveStartSound.Play();
         RaiseWaveStart();
     }
 
@@ -134,7 +142,7 @@ public class GameManager : MonoBehaviour {
 
         PrepareNextWaveSources();
         UpdateWaveWarnings();
-        waveEnd.Play();
+        waveEndSound.Play();
         RaiseWaveEnd();
 		
 
@@ -214,7 +222,8 @@ public class GameManager : MonoBehaviour {
 		if(GameOver != null) {
             GameOver.Invoke();
         }
-        gameOver.Play();
+        gameOver = true;
+        gameOverSound.Play();
     }
 
     private void PrepareNextWaveSources() {

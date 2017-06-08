@@ -1,15 +1,6 @@
 <?php
     include 'dbConfig.php'; // db connection variables
 
-    // connect to db
-    try {
-        $pdo = new PDO('mysql:host='. $hostname .';dbname='. $database, $username, $password);        
-    }
-    catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-        exit();
-    }
-
     // get values from request link
     $id = (int)$_POST['id'];
     $name = $_POST['name'];
@@ -19,6 +10,15 @@
     $realHash = md5($id . $name . $secretKey); 
 
     if($realHash == $hash) {
+        // connect to db
+        try {
+            $pdo = new PDO('mysql:host='. $hostname .';dbname='. $database, $username, $password);        
+        }
+        catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+            exit();
+        }
+
         // prepare query for execution
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "UPDATE Scores SET name ='$name' WHERE id=$id";
@@ -33,8 +33,9 @@
             echo 'Error: ' . $e->getMessage();
             exit();
         }
+
+        // Close connection
+        $pdo = null;
     }
 
-    // Close connection
-    $pdo = null;
 ?>

@@ -1,31 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ServerTest : MonoBehaviour {
+public class Leaderboard : MonoBehaviour {
 
 	private string secretKey = "SuperSecretKey";
-	//private string addScoreURL = "http://localhost/AddScoreTest.php?";
 	private string addScoreURL = "http://asteroidlab.com/games/tinydefender/AddScore.php";
 	private string updateNameURL = "http://asteroidlab.com/games/tinydefender/UpdateName.php";
 	private string topScoresURL = "http://asteroidlab.com/games/tinydefender/TopScores.php";
 	private string neighbourScoresURL = "http://asteroidlab.com/games/tinydefender/NeighbourScores.php?";
 	private string rankURL = "http://asteroidlab.com/games/tinydefender/GetRank.php?";
-	private int highscore;
-	private string username;
+
+
+	private string lastName = "Tiny Def"; // TODO find a nice default name
+	private string playerId;
 	private int rank;
 
-	// Use this for initialization
-	void Start () {
-        StartCoroutine(AddScore("josé", 500));
-    }
 	
-	// Update is called once per frame
-	void Update () {
-		
+	public void SubmitScore(int score) {
+		StartCoroutine(AddScore(lastName, score));
 	}
 
-	IEnumerator AddScore(string name, int score) {
+	public void UpdateName(string name) {
+		Debug.Assert(playerId != null, "No player Id, cannot update name!");
+		lastName = name;
+		StartCoroutine(UpdateName(playerId, name));
+
+	}
+
+	private void UpdateNeigbourScorePanel(string neighbourScore) {
+
+	}
+
+	private void UpdateTopScorePanel(string topScore) {
+
+	}
+
+
+	private IEnumerator AddScore(string name, int score) {
 	
 		string hash = Md5Sum(name + score + secretKey);
 
@@ -35,79 +48,65 @@ public class ServerTest : MonoBehaviour {
         form.AddField("hash", hash);
         WWW postScoreAttempt = new WWW(addScoreURL, form);
 
-        //WWW postURL = new WWW(addScoreURL + "name=" + WWW.EscapeURL(name) + "&score=" + score + "&hash=" + hash);
         yield return postScoreAttempt;
 	
-		if (postScoreAttempt.error == null)
-		{
-			string id = postScoreAttempt.text;
-            Debug.Log("Post score success with id: " + id);
-            StartCoroutine(GetNeighbourScores(id));
-            //StartCoroutine(GetRank(id));
+		if (postScoreAttempt.error == null)	{
+			playerId = postScoreAttempt.text;
+            Debug.Log("Post score success with id: " + playerId);
+			StartCoroutine(GetNeighbourScores(playerId, UpdateNeigbourScorePanel));
+			StartCoroutine(GetTopScores(UpdateTopScorePanel));
         }
-		else
-		{
-            Debug.Log("Post score failure " + postScoreAttempt.error);			
-			//Error();
+		else {
+            Debug.LogError("Post score failure " + postScoreAttempt.error);			
 		}
 	}
 
-	IEnumerator GetNeighbourScores(string id) {
+	private IEnumerator GetNeighbourScores(string id, Action<string> successCallback) {
 	
 		WWW getNeighbourScoresAttempt = new WWW(neighbourScoresURL + "id=" + id);
 	
 		yield return getNeighbourScoresAttempt;
 	
-		if (getNeighbourScoresAttempt.error == null)
-		{
+		if (getNeighbourScoresAttempt.error == null) {
             Debug.Log("Get neighbour scores success:\n" + getNeighbourScoresAttempt.text);
-            
+            successCallback(getNeighbourScoresAttempt.text);
         }
-		else
-		{
-			Debug.Log("Get neighbour scores failure " + getNeighbourScoresAttempt.error);	
-			//Error();
+		else {
+			Debug.LogError("Get neighbour scores failure " + getNeighbourScoresAttempt.error);	
 		}
 	}
 
-	IEnumerator GetRank(string id) {
+	private IEnumerator GetRank(string id) {
 	
 		WWW getRankAttempt = new WWW(rankURL + "id=" + WWW.EscapeURL(id));
 	
 		yield return getRankAttempt;
 	
-		if (getRankAttempt.error == null)
-		{
+		if (getRankAttempt.error == null) {
 			rank = System.Int32.Parse(getRankAttempt.text);
             Debug.Log("Get rank success: " + rank);
-            StartCoroutine(GetTopScores());
         }
-		else
-		{
-			Debug.Log("Get rank failure " + getRankAttempt.error);	
-			//Error();
+		else {
+			Debug.LogError("Get rank failure " + getRankAttempt.error);	
 		}
 	}
 
-	IEnumerator GetTopScores() {
+	private IEnumerator GetTopScores(Action<string> successCallback) {
 	
 		WWW getTopScoresAttempt = new WWW(topScoresURL);
 	
 		yield return getTopScoresAttempt;
 	
-		if (getTopScoresAttempt.error == null)
-		{
-			string scores = getTopScoresAttempt.text;
-            Debug.Log("Top scores:\n" + scores);
+		if (getTopScoresAttempt.error == null) {
+            Debug.Log("Top scores:\n" + getTopScoresAttempt.text);
+			successCallback(getTopScoresAttempt.text);
         }
-		else
-		{
-			Debug.Log("Get top failure " + getTopScoresAttempt.error);	
-			//Error();
+		else {
+			Debug.LogError("Get top failure " + getTopScoresAttempt.error);	
 		}
 	}
 
-	IEnumerator UpdateName(string id, string name) {
+	private IEnumerator UpdateName(string id, string name) {
 	
 		string hash = Md5Sum(id + name + secretKey);
 
@@ -119,19 +118,16 @@ public class ServerTest : MonoBehaviour {
 
         yield return postNameAttempt;
 	
-		if (postNameAttempt.error == null)
-		{
+		if (postNameAttempt.error == null) {
             Debug.Log("Update name successful");
         }
-		else
-		{
-            Debug.Log("Updtate name failure " + postNameAttempt.error);			
-			//Error();
+		else {
+            Debug.LogError("Updtate name failure " + postNameAttempt.error);			
 		}
 	}
 
 
-	public  string Md5Sum(string strToEncrypt) {
+	private  string Md5Sum(string strToEncrypt) {
 		System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
 		byte[] bytes = ue.GetBytes(strToEncrypt);
 	
@@ -142,8 +138,7 @@ public class ServerTest : MonoBehaviour {
 		// Convert the encrypted bytes back to a string (base 16)
 		string hashString = "";
 	
-		for (int i = 0; i < hashBytes.Length; i++)
-		{
+		for (int i = 0; i < hashBytes.Length; i++) {
 			hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
 		}
 	
